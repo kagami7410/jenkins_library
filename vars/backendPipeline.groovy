@@ -22,13 +22,13 @@ def call(body){
                 }
             }
 
-//            stage('maven package') {
-//                steps {
-//                    script{
-//                        sh "mvn clean package"
-//                    }
-//                }
-//            }
+            stage('maven package') {
+                steps {
+                    script{
+                        sh "mvn clean package"
+                    }
+                }
+            }
 
             stage('docker build and push') {
                 steps {
