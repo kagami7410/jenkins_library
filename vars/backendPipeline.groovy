@@ -36,19 +36,23 @@ def call(body){
 
         stages {
             stage('pod-template-test'){
-                node(POD_LABEL) {
-                    stage('test'){
-                        steps{
-                            container('agent-container'){
-                                stage('java-test'){
-                                    sh """
+                steps{
+                    node(POD_LABEL) {
+                        stage('test'){
+                            steps{
+                                container('agent-container'){
+                                    stage('java-test'){
+                                        sh """
                                        java -version
                                        """
+                                    }
                                 }
                             }
                         }
                     }
+
                 }
+
             }
 
             stage('set up') {
