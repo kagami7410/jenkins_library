@@ -42,7 +42,7 @@ def call(body){
                     script{
                         sh """
                            git clone https://github.com/kagami7410/basic-helm-charts.git
-                           helm template basic-helm-charts/basicHelmChart --values basic-helm-charts/basicHelmChart/values.yaml
+                           helm install better_backend_deployment_test basic-helm-charts/basicHelmChart --values basic-helm-charts/basicHelmChart/values.yaml
                            """
 
                     }
