@@ -5,6 +5,7 @@ def call(body){
         agent {
             kubernetes{
                 inheritFrom 'kube-agent'
+                defaultContainer 'agent-container'
 //                yaml '''
 //                apiVersion: v1
 //                kind: Pod
