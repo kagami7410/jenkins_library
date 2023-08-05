@@ -8,3 +8,10 @@ def dockerBuildAndPush(appName, dockerUserName){
         docker push ${dockerImage}
      """
 }
+
+def dockerLogin(){
+    withCredentials([usernamePassword(credentialsId: '670bb4dd-eda3-460a-a4ed-dec383722ee6', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+        sh "echo 'Username: $USERNAME'"
+        sh "echo 'Password: $PASSWORD'"
+    }
+}

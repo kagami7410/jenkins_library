@@ -31,11 +31,12 @@ def call(body){
             stage('docker build and push') {
                 steps {
                     script{
+                        new docker().dockerLogin()
                         new docker().dockerBuildAndPush("better-backend", "sujan7410")
                     }
                 }
             }
-            
+
 
             stage('test library '){
                 steps{
