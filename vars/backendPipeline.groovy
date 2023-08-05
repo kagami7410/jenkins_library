@@ -4,30 +4,29 @@ def call(body){
     pipeline {
         agent {
             kubernetes{
-                inheritFrom 'lol'
-//                yaml '''
-//                apiVersion: v1
-//                kind: Pod
-//                spec:
-//                    containers:
-//                    - name: agent-container
-//                      image: sujan7410/docker_java_helm:v1.0.0
-//                      command:
-//                      - cat
-//                      tty: true
-//                      volumeMounts:
-//                      - name: docker-sock-volume
-//                        mountPath: /var/run/docker.sock
-//                        readOnly: false
-//
-//                    volumes:
-//                    - name: docker-sock-volume
-//                      hostPath:
-//                        path: "/var/run/docker.sock"
-//
-//
-//
-//                    '''
+                yaml '''
+                apiVersion: v1
+                kind: Pod
+                spec:
+                    containers:
+                    - name: agent-container
+                      image: sujan7410/docker_java_helm:v1.0.0
+                      command:
+                      - cat
+                      tty: true
+                      volumeMounts:
+                      - name: docker-sock-volume
+                        mountPath: /var/run/docker.sock
+                        readOnly: false
+
+                    volumes:
+                    - name: docker-sock-volume
+                      hostPath:
+                        path: "/var/run/docker.sock"
+
+
+
+                    '''
             }
         }
 
