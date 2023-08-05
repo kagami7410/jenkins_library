@@ -63,7 +63,7 @@ def call(body){
 
             stage('test library '){
                 steps{
-                    backendPipeline()
+                    new helloWorld().helloWorld()
                 }
             }
         }
