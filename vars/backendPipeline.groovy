@@ -14,34 +14,36 @@ def call(body){
         }
 
         stages {
-            stage('set up') {
-                steps {
-                    sh 'rm -rf better_backend'
-                    sh 'git clone https://github.com/kagami7410/better_backend.git '
-                    sh 'java -version'
-                }
-            }
+//            stage('set up') {
+//                steps {
+//                    sh 'rm -rf better_backend'
+//                    sh 'git clone https://github.com/kagami7410/better_backend.git '
+//                }
+//            }
+//
+//            stage('maven package') {
+//                steps {
+//                    sh "mvn clean package"
+//                }
+//            }
+//
+//            stage('docker build and push') {
+//                steps {
+//                    script{
+//                        new docker().dockerLogin()
+//                        new docker().dockerBuildAndPush("better-backend", "sujan7410")
+//                    }
+//                }
+//            }
 
-            stage('maven package') {
-                steps {
-                    sh "mvn clean package"
-                }
-            }
 
-            stage('docker build and push') {
-                steps {
-                    script{
-                        new docker().dockerLogin()
-                        new docker().dockerBuildAndPush("better-backend", "sujan7410")
-                    }
-                }
-            }
-
-
-            stage('test library '){
+            stage(' deploy to kubernetes '){
                 steps{
                     script{
-                        new helloWorld().helloWorld()
+                        sh """
+                           git clone https://github.com/kagami7410/basic-helm-charts.git
+                           helm template basic-helm-charts/basicHelmChart --values basic-helm-charts/basicHelmChart/values.yaml
+                           """
 
                     }
                 }
