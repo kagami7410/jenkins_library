@@ -41,7 +41,7 @@ def call(body){
                 )
         ],
                 volumes: [
-                        hostPath(
+                        hostPathVolume(
                                 mountPath: '/var/run/docker.sock',
                                 path: '/var/run/docker.sock',
                                 readOnly: false
