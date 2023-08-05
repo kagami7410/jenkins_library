@@ -35,14 +35,7 @@ def call(body){
                     }
                 }
             }
-
-            stage('maven package') {
-                steps {
-                    script{
-                        sh "mvn clean package"
-                    }
-                }
-            }
+            
 
             stage('test library '){
                 steps{
