@@ -6,34 +6,12 @@ def call(body){
             kubernetes{
                 inheritFrom 'kube-agent'
                 defaultContainer 'agent-container'
-//                yaml '''
-//                apiVersion: v1
-//                kind: Pod
-//                spec:
-//                    containers:
-//                    - name: agent-container
-//                      image: sujan7410/docker_java_helm:v1.0.0
-//                      command:
-//                      - cat
-//                      tty: true
-//                      volumeMounts:
-//                      - name: docker-sock-volume
-//                        mountPath: /var/run/docker.sock
-//                        readOnly: false
-//
-//                    volumes:
-//                    - name: docker-sock-volume
-//                      hostPath:
-//                        path: "/var/run/docker.sock"
-//
-//                    '''
             }
         }
 
         tools {
             maven 'maven'
         }
-
 
         stages {
             stage('set up') {
@@ -44,16 +22,26 @@ def call(body){
                 }
             }
 
+//            stage('maven package') {
+//                steps {
+//                    script{
+//                        sh "mvn clean package"
+//                    }
+//                }
+//            }
+
+            stage('docker build and push') {
+                steps {
+                    script{
+                        new docker().dockerBuildAndPush("better-backend", "sujan7410")
+                    }
+                }
+            }
+
             stage('maven package') {
                 steps {
                     script{
-                        sh 'java -version'
-                        sh "mvn -version"
-                        sh 'mvn compile'
                         sh "mvn clean package"
-                        sh 'docker pull openjdk:17'
-                        sh 'helm create test_template'
-
                     }
                 }
             }
