@@ -1,4 +1,4 @@
-import activesync.library.*
+import com.activesync.libraries.*
 
 def call(body){
     pipeline {
