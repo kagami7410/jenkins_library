@@ -34,57 +34,60 @@ def call(body){
             maven 'maven'
         }
 
-        stages {
-            stage('pod-template-test'){
-                steps{
-                    node(POD_LABEL) {
-                        stage('test'){
-
-                                container('agent-container'){
-                                    stage('java-test'){
-                                        sh """
-                                       java -version
-                                       """
-                                    }
-                                }
-
+        podTemplate(containers: [
+                containerTemplate(
+                        name: 'maven',
+                        image: 'sujan7410/docker_java_helm:v1.0.0',
+                        command: 'sleep',
+                        args: '30d'
+                )
+        ]){
+            node(POD_LABEL) {
+                stage('test'){
+                    container('agent-container'){
+                        stage('java-test'){
+                            sh """
+                           java -version
+                           """
                         }
-                    }
-
-                }
-
-            }
-
-            stage('set up') {
-                steps {
-                    sh 'rm -rf better_backend'
-                    sh 'git clone https://github.com/kagami7410/better_backend.git '
-                    sh 'java -version'
-                }
-            }
-
-            stage('maven package') {
-                steps {
-                    script{
-                        sh 'java -version'
-                        sh "mvn -version"
-                        sh 'mvn compile'
-                        sh "mvn clean package"
-                        sh 'docker pull openjdk:17'
-                        sh 'helm create test_template'
-
-                    }
-                }
-            }
-
-            stage('test library '){
-                steps{
-                    script{
-                        new helloWorld().helloWorld()
-
                     }
                 }
             }
         }
+
+
+
+//        stages {
+//            stage('set up') {
+//                steps {
+//                    sh 'rm -rf better_backend'
+//                    sh 'git clone https://github.com/kagami7410/better_backend.git '
+//                    sh 'java -version'
+//                }
+//            }
+//
+//            stage('maven package') {
+//                steps {
+//                    script{
+//                        sh 'java -version'
+//                        sh "mvn -version"
+//                        sh 'mvn compile'
+//                        sh "mvn clean package"
+//                        sh 'docker pull openjdk:17'
+//                        sh 'helm create test_template'
+//
+//                    }
+//                }
+//            }
+//
+//            stage('test library '){
+//                steps{
+//                    script{
+//                        new helloWorld().helloWorld()
+//
+//                    }
+//                }
+//            }
+//        }
     }
 }
