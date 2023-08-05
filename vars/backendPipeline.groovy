@@ -4,96 +4,67 @@ def call(body){
     pipeline {
         agent {
             kubernetes{
-                yaml '''
-                apiVersion: v1
-                kind: Pod
-                spec:
-                    containers:
-                    - name: agent-container
-                      image: sujan7410/docker_java_helm:v1.0.0
-                      command:
-                      - cat
-                      tty: true
-                      volumeMounts:
-                      - name: docker-sock-volume
-                        mountPath: /var/run/docker.sock
-                        readOnly: false
-
-                    volumes:
-                    - name: docker-sock-volume
-                      hostPath:
-                        path: "/var/run/docker.sock"
-
-                    '''
+                inheritFrom 'kube-agent'
+//                yaml '''
+//                apiVersion: v1
+//                kind: Pod
+//                spec:
+//                    containers:
+//                    - name: agent-container
+//                      image: sujan7410/docker_java_helm:v1.0.0
+//                      command:
+//                      - cat
+//                      tty: true
+//                      volumeMounts:
+//                      - name: docker-sock-volume
+//                        mountPath: /var/run/docker.sock
+//                        readOnly: false
+//
+//                    volumes:
+//                    - name: docker-sock-volume
+//                      hostPath:
+//                        path: "/var/run/docker.sock"
+//
+//                    '''
             }
         }
 
-//        tools {
-//            maven 'maven'
-//        }
+        tools {
+            maven 'maven'
+        }
 
-        podTemplate(containers: [
-                containerTemplate(
-                        name: 'agent-container',
-                        image: 'sujan7410/docker_java_helm:v1.0.0',
-                        command: 'sleep',
-                        args: '30d'
-                )
-        ],
-                volumes: [
-                        hostPathVolume{
-                            mountPath: '/var/run/docker.sock'
-                            hostPath: '/var/run/docker.sock'
-                            readOnly: false
-                        }
 
-                ]){
-            node(POD_LABEL) {
-                stage('test'){
-                    container('agent-container'){
-                        stage('java-test'){
-                            sh """
-                           java -version
-                           """
-                        }
+        stages {
+            stage('set up') {
+                steps {
+                    sh 'rm -rf better_backend'
+                    sh 'git clone https://github.com/kagami7410/better_backend.git '
+                    sh 'java -version'
+                }
+            }
+
+            stage('maven package') {
+                steps {
+                    script{
+                        sh 'java -version'
+                        sh "mvn -version"
+                        sh 'mvn compile'
+                        sh "mvn clean package"
+                        sh 'docker pull openjdk:17'
+                        sh 'helm create test_template'
+
+                    }
+                }
+            }
+
+            stage('test library '){
+                steps{
+                    script{
+                        new helloWorld().helloWorld()
+
                     }
                 }
             }
         }
-
-
-
-//        stages {
-//            stage('set up') {
-//                steps {
-//                    sh 'rm -rf better_backend'
-//                    sh 'git clone https://github.com/kagami7410/better_backend.git '
-//                    sh 'java -version'
-//                }
-//            }
-//
-//            stage('maven package') {
-//                steps {
-//                    script{
-//                        sh 'java -version'
-//                        sh "mvn -version"
-//                        sh 'mvn compile'
-//                        sh "mvn clean package"
-//                        sh 'docker pull openjdk:17'
-//                        sh 'helm create test_template'
-//
-//                    }
-//                }
-//            }
-//
-//            stage('test library '){
-//                steps{
-//                    script{
-//                        new helloWorld().helloWorld()
-//
-//                    }
-//                }
-//            }
-//        }
     }
 }
