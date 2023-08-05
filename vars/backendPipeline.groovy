@@ -30,9 +30,9 @@ def call(body){
             }
         }
 
-        tools {
-            maven 'maven'
-        }
+//        tools {
+//            maven 'maven'
+//        }
 
         podTemplate(containers: [
                 containerTemplate(
