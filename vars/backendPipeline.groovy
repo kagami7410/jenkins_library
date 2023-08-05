@@ -35,6 +35,17 @@ def call(body){
         }
 
         stages {
+            node(POD_LABEL) {
+                stage('test'){
+                    container('agent-container'){
+                        stage('java-test'){
+                            sh """
+                                java -version
+                                """
+                        }
+                    }
+                }
+            }
             stage('set up') {
                 steps {
                     sh 'rm -rf better_backend'
