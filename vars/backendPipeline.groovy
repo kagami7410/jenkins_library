@@ -4,7 +4,7 @@ def call(body){
     pipeline {
         agent {
             kubernetes{
-                inheritFrom 'kube-agent'
+                label 'kubeagent'
 //                yaml '''
 //                apiVersion: v1
 //                kind: Pod
