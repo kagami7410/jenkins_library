@@ -63,7 +63,10 @@ def call(body){
 
             stage('test library '){
                 steps{
-                    new helloWorld().helloWorld()
+                    script{
+                        new helloWorld().helloWorld()
+
+                    }
                 }
             }
         }
