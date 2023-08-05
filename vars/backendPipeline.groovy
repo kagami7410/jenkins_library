@@ -36,7 +36,7 @@ def call(body){
 
         podTemplate(containers: [
                 containerTemplate(
-                        name: 'maven',
+                        name: 'agent-container',
                         image: 'sujan7410/docker_java_helm:v1.0.0',
                         command: 'sleep',
                         args: '30d'
