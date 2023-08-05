@@ -39,7 +39,7 @@ def call(body){
                 steps{
                     node(POD_LABEL) {
                         stage('test'){
-                            steps{
+
                                 container('agent-container'){
                                     stage('java-test'){
                                         sh """
@@ -47,7 +47,7 @@ def call(body){
                                        """
                                     }
                                 }
-                            }
+
                         }
                     }
 
