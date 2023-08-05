@@ -24,8 +24,6 @@ def call(body){
                       hostPath:
                         path: "/var/run/docker.sock"
 
-
-
                     '''
             }
         }
@@ -41,7 +39,14 @@ def call(body){
                         command: 'sleep',
                         args: '30d'
                 )
-        ]){
+        ],
+                volumes: [
+                        volume(
+                                mountPath: '/var/run/docker.sock',
+                                hostPath: '/var/run/docker.sock',
+                                readOnly: false
+                        )
+                ]){
             node(POD_LABEL) {
                 stage('test'){
                     container('agent-container'){
