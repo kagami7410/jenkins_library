@@ -41,11 +41,12 @@ def call(body){
                 )
         ],
                 volumes: [
-                        hostPathVolume(
-                                mountPath: '/var/run/docker.sock',
-                                path: '/var/run/docker.sock',
-                                readOnly: false
-                        )
+                        hostPathVolume{
+                            mountPath: '/var/run/docker.sock'
+                            path: '/var/run/docker.sock'
+                            readOnly: false
+                        }
+
                 ]){
             node(POD_LABEL) {
                 stage('test'){
