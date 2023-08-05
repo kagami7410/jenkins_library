@@ -11,7 +11,6 @@ def dockerBuildAndPush(appName, dockerUserName){
 
 def dockerLogin(){
     withCredentials([usernamePassword(credentialsId: '670bb4dd-eda3-460a-a4ed-dec383722ee6', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-        sh "echo 'Username: $USERNAME'"
-        sh "echo 'Password: $PASSWORD'"
+        docker.withRegistry("docker.io", "${USERNAME}", "${PASSWORD}")
     }
 }
