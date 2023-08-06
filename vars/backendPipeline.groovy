@@ -6,6 +6,7 @@ def call(body){
             kubernetes{
                 inheritFrom 'kube-agent'
                 defaultContainer 'agent-container'
+                serviceAccount 'jenkins-deploy-admin'
             }
         }
 
