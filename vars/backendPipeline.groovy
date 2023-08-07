@@ -7,6 +7,13 @@ def call(body){
                 inheritFrom 'kube-agent'
                 defaultContainer 'agent-container'
                 serviceAccount 'jenkins-admin'
+                roleBindings {
+                    roleBinding {
+                        name 'jenkins-admin-deploy'
+                        role 'ClusterRole'
+                        kind 'ClusterRole'
+                    }
+                }
             }
         }
 
