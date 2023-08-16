@@ -15,27 +15,28 @@ def call(body){
         }
 
         stages {
-//            stage('set up') {
-//                steps {
-//                    sh 'rm -rf better_backend'
-//                    sh 'git clone https://github.com/kagami7410/better_backend.git '
-//                }
-//            }
-//
-//            stage('maven package') {
-//                steps {
-//                    sh "mvn clean package"
-//                }
-//            }
-//
-//            stage('docker build and push') {
-//                steps {
-//                    script{
-//                        new docker().dockerLogin()
-//                        new docker().dockerBuildAndPush("better-backend", "sujan7410")
-//                    }
-//                }
-//            }
+            stage('set up') {
+                steps {
+                    echo("---------------- Testing Environment Variable: ${env.SONAR_QUBE_URL} --------------------------")
+                    sh 'rm -rf better_backend'
+                    sh 'git clone https://github.com/kagami7410/better_backend.git '
+                }
+            }
+
+            stage('maven package') {
+                steps {
+                    sh "mvn clean package"
+                }
+            }
+
+            stage('docker build and push') {
+                steps {
+                    script{
+                        new docker().dockerLogin()
+                        new docker().dockerBuildAndPush("better-backend", "sujan7410")
+                    }
+                }
+            }
 
 
             stage(' deploy to kubernetes '){
