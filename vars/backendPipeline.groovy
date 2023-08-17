@@ -30,8 +30,7 @@ def call(body){
             }
             stage("Wait"){
                 steps{
-                    wait(time: 5, unit: 'MINUTES')
-
+                    sleep time: 5, unit: 'MINUTES'
                 }
             }
 
