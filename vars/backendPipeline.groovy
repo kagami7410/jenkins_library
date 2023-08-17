@@ -25,8 +25,13 @@ def call(body){
                         echo "Testing var: ${env.SONAR_QUBE_URL}"
                         sh 'rm -rf better_backend'
                         sh 'git clone https://github.com/kagami7410/better_backend.git '
-                        wait(time: 5, unit: 'MINUTES')
                     }
+                }
+            }
+            stage("Wait"){
+                steps{
+                    wait(time: 5, unit: 'MINUTES')
+
                 }
             }
 
