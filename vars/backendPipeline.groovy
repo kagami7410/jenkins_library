@@ -21,6 +21,10 @@ def call(body){
                         echo " Testing Environment Variable: ${env.SONAR_QUBE_URL} "
                         echo "${env.JENKINS_WEB_SOCKET}"
                         echo "${env.test}"
+                        sh """
+                            echo ${env.test}
+                            -c env
+                            """
                         sh 'rm -rf better_backend'
                         sh 'git clone https://github.com/kagami7410/better_backend.git '
                     }
