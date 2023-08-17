@@ -21,10 +21,7 @@ def call(body){
 
                         echo "${env.JENKINS_WEB_SOCKET}"
                         echo "${env.test}"
-                        sh """
-                            echo ${env.JOB_NAME}
-                            printenv $SONAR_QUBE_URL
-                            """
+                        echo "Job name: ${env.JOB_NAME}"
                         sh 'rm -rf better_backend'
                         sh 'git clone https://github.com/kagami7410/better_backend.git '
                     }
