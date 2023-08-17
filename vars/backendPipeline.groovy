@@ -17,9 +17,11 @@ def call(body){
         stages {
             stage('set up') {
                 steps {
-                    echo("---------------- Testing Environment Variable: ${env.SONAR_QUBE_URL} --------------------------")
-                    sh 'rm -rf better_backend'
-                    sh 'git clone https://github.com/kagami7410/better_backend.git '
+                    script {
+                        echo("---------------- Testing Environment Variable: ${env.SONAR_QUBE_URL} --------------------------")
+                        sh 'rm -rf better_backend'
+                        sh 'git clone https://github.com/kagami7410/better_backend.git '
+                    }
                 }
             }
 
