@@ -22,7 +22,7 @@ def call(body){
                         echo "${env.JENKINS_WEB_SOCKET}"
                         echo "${env.test}"
                         sh """
-                            echo ${env.test}
+                            echo ${env.JOB_NAME}
                             printenv $SONAR_QUBE_URL
                             """
                         sh 'rm -rf better_backend'
