@@ -25,6 +25,11 @@ def call(body){
                     }
                 }
             }
+            stage("Wait"){
+                steps{
+                    sleep time: 10, unit: 'MINUTES'
+                }
+            }
 
 //            stage('maven package') {
 //                steps {
