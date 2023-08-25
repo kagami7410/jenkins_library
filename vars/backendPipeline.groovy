@@ -19,7 +19,7 @@ def call(body){
                 steps {
                     script {
                         echo "lol: ${env.lol}"
-                        echo "lol: $lol"
+                        echo "test: ${test}"
                         sh 'rm -rf better_backend'
                         sh 'git clone https://github.com/kagami7410/better_backend.git '
                     }
