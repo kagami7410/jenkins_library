@@ -26,11 +26,11 @@ def call(body){
                                 cd project
                                 git init
                                 rm -rf better_backend
-                                GIT_SSH_COMMAND="ssh -i \$SSH_KEY" git remote add origin git@github.com:kagami7410/better_backend.git
-                                GIT_SSH_COMMAND="ssh -i \$SSH_KEY" git clone git@github.com:kagami7410/better_backend.git
+                                git remote add origin git@github.com:kagami7410/better_backend.git
+                                git clone git@github.com:kagami7410/better_backend.git
                                 echo "testing" > testfile.text
                                 git commit -am "test git credentials"
-                                GIT_SSH_COMMAND="ssh -i \$SSH_KEY" git push
+                                GIT_SSH_COMMAND="ssh -i ${SSH_KEY}" git push
                                 """
 
                         }
