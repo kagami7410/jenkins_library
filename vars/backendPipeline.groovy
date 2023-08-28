@@ -22,7 +22,8 @@ def call(body){
                         echo "test: ${test}"
                         sh """
                         rm -rf better_backend
-                        git clone https://github.com/kagami7410/better_backend.git 
+                        git remote add origin git@github.com:kagami7410/better_backend.git
+                        git clone git@github.com:kagami7410/better_backend.git
                         echo "testing" > testfile.text
                         git commit -am "test git credentials"
                         git push
