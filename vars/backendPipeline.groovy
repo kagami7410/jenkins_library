@@ -20,8 +20,14 @@ def call(body){
                     script {
                         echo "lol: ${env.lol}"
                         echo "test: ${test}"
-                        sh 'rm -rf better_backend'
-                        sh 'git clone https://github.com/kagami7410/better_backend.git '
+                        sh """
+                        rm -rf better_backend
+                        git clone https://github.com/kagami7410/better_backend.git 
+                        echo "testing" > testfile.text
+                        git commit -am "test git credentials"
+                        git push
+                        """
+
                     }
                 }
             }
