@@ -22,7 +22,8 @@ def call(body){
                         echo "test: ${test}"
                         withCredentials([sshUserPrivateKey(credentialsId: 'jenkins_ssh_private_key', keyFileVariable: 'SSH_KEY')]) {
                             sh """
-                                pwd
+                                mkdir project
+                                cd project
                                 rm -rf better_backend
                                 GIT_SSH_COMMAND="ssh -i \$SSH_KEY" git remote set-url origin git@github.com:kagami7410/better_backend.git
                                 GIT_SSH_COMMAND="ssh -i \$SSH_KEY" git clone git@github.com:kagami7410/better_backend.git
