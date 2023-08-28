@@ -24,6 +24,7 @@ def call(body){
                             sh """
                                 mkdir project
                                 cd project
+                                git init
                                 rm -rf better_backend
                                 GIT_SSH_COMMAND="ssh -i \$SSH_KEY" git remote set-url origin git@github.com:kagami7410/better_backend.git
                                 GIT_SSH_COMMAND="ssh -i \$SSH_KEY" git clone git@github.com:kagami7410/better_backend.git
