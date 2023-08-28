@@ -23,11 +23,11 @@ def call(body){
                         withCredentials([sshUserPrivateKey(credentialsId: 'jenkins_ssh_private_key', keyFileVariable: 'SSH_KEY')]) {
                             sh """
                                 rm -rf better_backend
-                                git remote set-url origin git@github.com:kagami7410/better_backend.git
-                                git clone git@github.com:kagami7410/better_backend.git
+                                GIT_SSH_COMMAND="ssh -i \$SSH_KEY" git remote set-url origin git@github.com:kagami7410/better_backend.git
+                                GIT_SSH_COMMAND="ssh -i \$SSH_KEY" git clone git@github.com:kagami7410/better_backend.git
                                 echo "testing" > testfile.text
                                 git commit -am "test git credentials"
-                                git push
+                                GIT_SSH_COMMAND="ssh -i \$SSH_KEY" git push
                                 """
 
                         }
