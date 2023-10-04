@@ -39,35 +39,34 @@ def call(body){
                 }
             }
 
+            stage('maven package') {
+                steps {
+                    sh "mvn clean package"
+                }
+            }
 
-//            stage('maven package') {
-//                steps {
-//                    sh "mvn clean package"
-//                }
-//            }
-//
-//            stage('docker build and push') {
-//                steps {
-//                    script{
-//                        new docker().dockerLogin()
-//                        new docker().dockerBuildAndPush("better-backend", "sujan7410")
-//                    }
-//                }
-//            }
-//
-//
-//            stage(' deploy to kubernetes '){
-//                steps{
-//                    script{
-//                        sh """
-//                           git clone https://github.com/kagami7410/basic-helm-charts.git
-//                           helm template basic-helm-charts/basicHelmChart --values basic-helm-charts/basicHelmChart/values.yaml
-//                           helm upgrade helm-test basic-helm-charts/basicHelmChart --values basic-helm-charts/basicHelmChart/values.yaml
-//                           """
-//
-//                    }
-//                }
-//            }
+            stage('docker build and push') {
+                steps {
+                    script{
+                        new docker().dockerLogin()
+                        new docker().dockerBuildAndPush("better-backend", "sujan7410")
+                    }
+                }
+            }
+
+
+            stage(' deploy to kubernetes '){
+                steps{
+                    script{
+                        sh """
+                           git clone https://github.com/kagami7410/basic-helm-charts.git
+                           helm template basic-helm-charts/basicHelmChart --values basic-helm-charts/basicHelmChart/values.yaml
+                           helm upgrade helm-test basic-helm-charts/basicHelmChart --values basic-helm-charts/basicHelmChart/values.yaml
+                           """
+
+                    }
+                }
+            }
         }
     }
 }
