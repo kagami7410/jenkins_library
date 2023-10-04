@@ -18,23 +18,14 @@ def call(body){
             stage('set up') {
                 steps {
                     script {
-                        echo "lol: ${env.lol}"
-                        echo "test: ${test}"
-                        withCredentials([sshUserPrivateKey(credentialsId: 'jenkins_ssh_private_key', keyFileVariable: 'SSH_KEY')]) {
-                            sh """
-                                mkdir project
-                                cd project
-                                git init
-                                rm -rf better_backend
-                                git remote add origin git@github.com:kagami7410/better_backend.git
-                                git clone git@github.com:kagami7410/better_backend.git
-                                echo "testing" > testfile.text
-                                git commit -am "test git credentials"
-                                GIT_SSH_COMMAND="ssh -i ${SSH_KEY}" git push
-                                """
-
-                        }
-
+                        sh"""
+                            mkdir project
+                            cd project
+                            git init
+                            rm -rf better_backend
+                            git remote add origin git@github.com:kagami7410/better_backend.git
+                            git clone git@github.com:kagami7410/better_backend.git
+                          """
                     }
                 }
             }
