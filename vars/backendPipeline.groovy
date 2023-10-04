@@ -18,18 +18,21 @@ def call(body){
             stage('set up') {
                 steps {
                     script {
-                        sh"""
-                            mkdir project
-                            cd project
-                            git init
-                            rm -rf better_backend
-                            git remote add origin git@github.com:kagami7410/better_backend.git
-                            git clone git@github.com:kagami7410/better_backend.git
-                          """
+                        withCredentials([sshUserPrivateKey(credentialsId: 'jenkins_ssh_private_key', keyFileVariable: 'SSH_KEY')]) {
+                            sh """
+                                mkdir project
+                                cd project
+                                git init
+                                rm -rf better_backend
+                                git remote add origin git@github.com:kagami7410/better_backend.git
+                                git clone git@github.com:kagami7410/better_backend.git
+                                """
+
+                        }
+
                     }
                 }
             }
-
             stage('maven package') {
                 steps {
                     sh "mvn clean package"
