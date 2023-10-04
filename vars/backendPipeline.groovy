@@ -18,7 +18,7 @@ def call(body){
             stage('set up') {
                 steps {
                     script {
-                        withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
+//                        withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
                             sh """
                                 mkdir project
                                 cd project
@@ -30,7 +30,7 @@ def call(body){
                                 """
                             //                                GIT_SSH_COMMAND="ssh -i ${SSH_KEY}" git push
 
-                        }
+//                        }
 
                     }
                 }
