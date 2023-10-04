@@ -18,7 +18,7 @@ def call(body){
             stage('set up') {
                 steps {
                     script {
-                        withCredentials([sshUserPrivateKey(credentialsId: 'jenkins_ssh_private_key', keyFileVariable: 'SSH_KEY')]) {
+                        withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
                             sh """
                                 mkdir project
                                 cd project
@@ -26,7 +26,9 @@ def call(body){
                                 rm -rf better_backend
                                 git remote add origin git@github.com:kagami7410/better_backend.git
                                 git clone git@github.com:kagami7410/better_backend.git
+
                                 """
+                            //                                GIT_SSH_COMMAND="ssh -i ${SSH_KEY}" git push
 
                         }
 
