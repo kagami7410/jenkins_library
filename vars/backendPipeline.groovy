@@ -18,15 +18,12 @@ def call(body){
             stage('set up') {
                 steps {
                     script {
-                        sleep time: 10, unit: 'MINUTES'
+//                        sleep time: 10, unit: 'MINUTES'
 
 //                        withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
                             sh """
                         
-                                mkdir project
-                                cd project
-                                git init
-                                rm -rf better_backend
+
                                 git remote add origin git@github.com:kagami7410/better_backend.git
                                 git clone git@github.com:kagami7410/better_backend.git
 
