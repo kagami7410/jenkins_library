@@ -20,6 +20,8 @@ def call(body){
                     script {
 //                        withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
                             sh """
+                                sleep time: 5, unit: 'MINUTES'
+                        
                                 mkdir project
                                 cd project
                                 git init
