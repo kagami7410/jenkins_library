@@ -18,7 +18,7 @@ def call(body){
             stage('set up') {
                 steps {
                     script {
-//                        sleep time: 10, unit: 'MINUTES'
+                        sleep time: 10, unit: 'MINUTES'
 
 //                        withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
                             sh """
