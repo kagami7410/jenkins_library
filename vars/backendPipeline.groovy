@@ -24,7 +24,7 @@ def call(body){
                             sh """
                         
 
-                                git remote add origin git@github.com:kagami7410/better_backend.git
+//                                git remote add origin git@github.com:kagami7410/better_backend.git
                                 git clone git@github.com:kagami7410/better_backend.git
 
                                 """
