@@ -34,7 +34,7 @@ def call(body){
                     script{
                         container("node-18"){
                             sh """
-                               npm install
+                               npm install --save-dev @babel/plugin-proposal-private-property-in-object
                                npm run build --force
                                """
                         }
