@@ -21,16 +21,16 @@ def call(body){
 //                        sleep time: 10, unit: 'MINUTES'
 //                        git remote add origin git@github.com:kagami7410/better_backend.git
 
-//                        withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
-                            sh """
+                        withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
+//                            sh """
+//
+//
+//                                git clone git@github.com:kagami7410/better_backend.git
+//
+//                                """
+                            GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/better_backend.git"
 
-
-                                git clone git@github.com:kagami7410/better_backend.git
-
-                                """
-                            //                                GIT_SSH_COMMAND="ssh -i ${SSH_KEY}" git push
-
-//                        }
+                        }
 
                     }
                 }
