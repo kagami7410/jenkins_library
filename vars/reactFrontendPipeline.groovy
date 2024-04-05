@@ -35,7 +35,7 @@ def call(body){
                         container("node-18"){
                             sh """
                                npm install
-                               npm run build
+                               npm run build --force
                                """
                         }
                     }
