@@ -32,7 +32,7 @@ def call(body){
             stage('build') {
                 steps {
                     script{
-                        container("node:18"){
+                        container("node-18"){
                             sh """
                                npm install
                                npm run build
