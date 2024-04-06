@@ -50,7 +50,7 @@ def call(body){
                            cd futakai_fe_helm_chart
                            helm template basicHelmChart
                            helm ls -n futakai-fe
-                           helm upgrade futakai-fe ./basic-helm-charts -n futakai-fe
+                           helm upgrade futakai-fe basicHelmChart/ -n futakai-fe
                            """
 
                     }
