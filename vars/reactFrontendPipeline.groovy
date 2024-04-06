@@ -14,7 +14,7 @@ def call(body){
             maven 'maven'
         }
 
-//        stages {
+        stages {
 //            stage('set up') {
 //                steps {
 //                    script {
