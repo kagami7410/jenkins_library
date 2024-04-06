@@ -34,8 +34,7 @@ def call(body){
                     script{
                         container("node-18"){
                             sh """
-                                npm install --loglevel=error
-                               
+                               npm install --save-dev @babel/plugin-proposal-private-property-in-object --loglevel=error
                                npm run build 
                                """
                         }
