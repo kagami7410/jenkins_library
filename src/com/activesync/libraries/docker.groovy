@@ -1,11 +1,10 @@
 package com.activesync.libraries
 
-def dockerBuildAndPush(appName, dockerUserName){
-    def dockerImage = "${dockerUserName}/${appName}"
+def dockerBuildAndPush(dockerHubUserName, imageName, tag){
+    def dockerImage = "${dockerHubUserName}/${imageName}"
     sh"""
-        docker build -t ${appName} .
-        docker tag ${appName} ${dockerImage}
-        docker push ${dockerImage}
+        docker build -t ${dockerImage}:${tag} .
+        docker push ${dockerImage}:${tag} 
      """
 }
 

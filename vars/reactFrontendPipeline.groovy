@@ -23,30 +23,21 @@ def call(body){
                         withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
 
                             GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/site1_pagination.git"
+                            def version = sh(returnStdout: true, script: 'jq -r ".version" package.json').trim()
+                            echo "React App Version: ${version}"
 
                         }
 
                     }
                 }
             }
-            stage('build') {
-                steps {
-                    script{
-                        container("node-18"){
-                            sh """
-                               npm install --save-dev @babel/plugin-proposal-private-property-in-object --loglevel=error
-                               npm run build 
-                               """
-                        }
-                    }
-                }
-            }
+
 
             stage('docker build and push') {
                 steps {
                     script{
                         new docker().dockerLogin()
-                        new docker().dockerBuildAndPush("better-backend", "sujan7410")
+                        new docker().dockerBuildAndPush("sujan7410", "futakai", "latest")
                     }
                 }
             }
@@ -56,9 +47,9 @@ def call(body){
                 steps{
                     script{
                         sh """
-                           git clone https://github.com/kagami7410/basic-helm-charts.git
-                           helm template basic-helm-charts/basicHelmChart --values basic-helm-charts/basicHelmChart/values.yaml
-                           helm upgrade helm-test basic-helm-charts/basicHelmChart --values basic-helm-charts/basicHelmChart/values.yaml
+                           git clone https://github.com/kagami7410/futakai_fe_helm_chart.git
+                           helm template /basicHelmChart
+                           helm upgrade futakai-fe /basic-helm-charts -n futakai-fe
                            """
 
                     }
