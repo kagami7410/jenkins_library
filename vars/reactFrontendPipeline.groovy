@@ -34,9 +34,9 @@ def call(body){
                     script{
                         container("node-18"){
                             sh """
-                               npm install
-                               npm audit fix --force
-                               npm run build --force
+                                npm install --loglevel=error
+                               
+                               npm run build 
                                """
                         }
                     }
