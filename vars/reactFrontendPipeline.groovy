@@ -25,7 +25,6 @@ def call(body){
                             GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/site1_pagination.git"
                             def version = sh(returnStdout: true, script: 'jq -r ".version" package.json').trim()
                             echo "React App Version: ${version}"
-                            helm version
 
                         }
 
@@ -49,9 +48,8 @@ def call(body){
                     script{
                         sh """
                            git clone https://github.com/kagami7410/futakai_fe_helm_chart.git
-                           cd futakai_fe_helm_chart
-                           helm template basicHelmChart
-                           helm upgrade futakai-fe basic-helm-charts/ -n futakai-fe
+                           helm template futakai_fe_helm_chart/basicHelmChart
+                           helm upgrade futakai-fe futakai_fe_helm_chart/basic-helm-charts/ -n futakai-fe
                            """
 
                     }
