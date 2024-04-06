@@ -49,7 +49,8 @@ def call(body){
                         sh """
                            git clone https://github.com/kagami7410/futakai_fe_helm_chart.git
                            cd futakai_fe_helm_chart
-                           helm template /basicHelmChart
+                           ls
+                           helm template basicHelmChart
                            helm upgrade futakai-fe /basic-helm-charts -n futakai-fe
                            """
 
