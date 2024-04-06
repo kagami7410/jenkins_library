@@ -25,6 +25,7 @@ def call(body){
                             GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/site1_pagination.git"
                             def version = sh(returnStdout: true, script: 'jq -r ".version" package.json').trim()
                             echo "React App Version: ${version}"
+                            helm version
 
                         }
 
