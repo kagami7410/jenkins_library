@@ -24,20 +24,24 @@ def call(body){
         stages {
             stage('set up') {
                 steps {
-                    script {
+                    container('node18-container'){
+                        script {
 
-                        withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
+                            withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
 
-                            GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/${env.APPLICATION_NAME}-nextjs-fe.git"
-                            def version = sh (
-                                    script: "node -p \"require('./package.json').version\"",
-                                    returnStdout: true
-                            ).trim()
-                            echo "App Version: ${version}"
+                                GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/${env.APPLICATION_NAME}-nextjs-fe.git"
+                                def version = sh (
+                                        script: "node -p \"require('./package.json').version\"",
+                                        returnStdout: true
+                                ).trim()
+                                echo "App Version: ${version}"
+
+                            }
 
                         }
 
                     }
+
                 }
             }
 
