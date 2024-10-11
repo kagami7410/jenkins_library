@@ -10,11 +10,11 @@ def call(body){
             }
         }
 
-        {
-            environment {
-                APPLICATION_NAME = "${pipelineParams.appName != null ? ${pipelineParams.appName} : "squid-corals"}"
-            }
+    
+        environment {
+            APPLICATION_NAME = "${pipelineParams.appName != null ? "${pipelineParams.appName}" : "squid-corals"}"
         }
+    
 
         tools {
             maven 'maven'
