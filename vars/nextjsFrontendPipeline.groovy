@@ -41,7 +41,7 @@ def call(body){
                 steps {
                     script{
                         new docker().dockerLogin()
-                        new docker().dockerBuildAndPush("sujan7410", ${env.APPLICATION_NAME} , "latest")
+                        new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
                     }
                 }
             }
