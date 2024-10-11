@@ -29,7 +29,10 @@ def call(body){
                         withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
 
                             GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/${env.APPLICATION_NAME}-nextjs-fe.git"
-                            def version = sh(returnStdout: true, script: 'jq -r ".version" package.json').trim()
+                            def version = sh (
+                                    script: "node -p \"require('./package.json').version\"",
+                                    returnStdout: true
+                            ).trim()
                             echo "App Version: ${version}"
 
                         }
