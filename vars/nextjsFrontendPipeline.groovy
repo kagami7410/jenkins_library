@@ -2,6 +2,11 @@ import com.common.libraries.*
 
 def call(body){
     pipeline {
+
+        environment {
+            APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squid-corals"}"
+        }
+
         agent {
             kubernetes{
                 inheritFrom 'kube-agent'
@@ -9,12 +14,6 @@ def call(body){
                 serviceAccount 'jenkins-admin'
             }
         }
-
-    
-        environment {
-            APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squid-corals"}"
-        }
-    
 
         tools {
             maven 'maven'
