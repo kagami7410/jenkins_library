@@ -1,6 +1,8 @@
 import com.common.libraries.*
 
 def call(body){
+
+    def pipelineParams = [:]
     pipeline {
 
         environment {
