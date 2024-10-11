@@ -12,7 +12,7 @@ def call(body){
 
     
         environment {
-            APPLICATION_NAME = "${pipelineParams.appName != null ? "${pipelineParams.appName}" : "squid-corals"}"
+            APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squid-corals"}"
         }
     
 
@@ -27,7 +27,7 @@ def call(body){
 
                         withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
 
-                            GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/${pipelineParams.appName}-nextjs-fe.git"
+                            GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/${env.APPLICATION_NAME}-nextjs-fe.git"
                             def version = sh(returnStdout: true, script: 'jq -r ".version" package.json').trim()
                             echo "App Version: ${version}"
 
@@ -42,7 +42,7 @@ def call(body){
                 steps {
                     script{
                         new docker().dockerLogin()
-                        new docker().dockerBuildAndPush("sujan7410", "${APPLICATION_NAME}", "latest")
+                        new docker().dockerBuildAndPush("sujan7410", ${env.APPLICATION_NAME} , "latest")
                     }
                 }
             }
