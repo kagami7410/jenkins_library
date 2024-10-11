@@ -1,4 +1,4 @@
-package com.activesync.libraries
+package com.common.libraries
 
 def dockerBuildAndPush(dockerHubUserName, imageName, tag){
     def dockerImage = "${dockerHubUserName}/${imageName}"

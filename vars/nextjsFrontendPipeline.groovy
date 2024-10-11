@@ -1,3 +1,5 @@
+import com.common.libraries.*
+
 def call(body){
     pipeline {
         agent {

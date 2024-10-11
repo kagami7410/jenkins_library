@@ -1,4 +1,4 @@
-package com.activesync.libraries
+package com.common.libraries
 
 def helloWorld(){
     sh """
