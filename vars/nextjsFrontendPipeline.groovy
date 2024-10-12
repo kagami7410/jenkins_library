@@ -37,14 +37,10 @@ def call(body){
                                 echo "App Version: ${version}"
 
                             }
-
                         }
-
                     }
-
                 }
             }
-
 
             stage('docker build and push') {
                 steps {
@@ -55,18 +51,10 @@ def call(body){
                 }
             }
 
-
             stage(' deploy to kubernetes '){
                 steps{
                     script{
-                        sh """
-                           git clone https://github.com/kagami7410/futakai_fe_helm_chart.git
-                           cd futakai_fe_helm_chart
-                           helm template basicHelmChart
-                           helm ls -n futakai-fe
-                           helm upgrade futakai-fe basicHelmChart/ -n futakai-fe
-                           """
-
+                        new helm().deploy(env.APPLICATION_NAME)
                     }
                 }
             }
