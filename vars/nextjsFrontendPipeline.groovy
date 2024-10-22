@@ -54,7 +54,7 @@ def call(body){
             stage(' deploy to kubernetes '){
                 steps{
                     script{
-                        def ns = ${env.APPLICATION_NAME}-frontend
+                        def ns = "${env.APPLICATION_NAME}-frontend"
                         // Check if the namespace exists
                         def nsExists = sh(script: "kubectl get namespace ${ns} --ignore-not-found", returnStatus: true)
 
