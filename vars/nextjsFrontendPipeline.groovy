@@ -54,14 +54,15 @@ def call(body){
             stage(' deploy to kubernetes '){
                 steps{
                     script{
+                        def ns = ${env.APPLICATION_NAME}-frontend
                         // Check if the namespace exists
-                        def nsExists = sh(script: "kubectl get namespace ${env.APPLICATION_NAME} --ignore-not-found", returnStatus: true)
+                        def nsExists = sh(script: "kubectl get namespace ${ns} --ignore-not-found", returnStatus: true)
 
                         if (nsExists != 0) {
                             echo "Namespace ${env.APPLICATION_NAME} does not exist. Creating it now..."
-                            sh "kubectl create namespace ${env.APPLICATION_NAME}"
+                            sh "kubectl create namespace ${ns}"
                         } else {
-                            echo "Namespace ${env.APPLICATION_NAME} already exists."
+                            echo "Namespace ${ns} already exists."
                         }
                         new helm().deploy(env.APPLICATION_NAME)
                     }
