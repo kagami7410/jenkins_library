@@ -1,7 +1,7 @@
 package com.common.libraries
 
-def deploy(appName, namespace){
+def deploy(appName){
     sh """
-        helm upgrade --install ${appName} ./helm_charts/squid_corals_frontend -n ${namespace}
+        helm upgrade --install ${appName} ./helm_charts/squid_corals_frontend -n ${appName}
     """
 }

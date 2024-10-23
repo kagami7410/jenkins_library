@@ -6,7 +6,7 @@ def call(body){
     pipeline {
 
         environment {
-            APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squid-corals"}"
+            APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squid-corals-frontend"}"
         }
 
         agent {
@@ -54,18 +54,17 @@ def call(body){
             stage(' deploy to kubernetes '){
                 steps{
                     script{
-                        def namespace = "${env.APPLICATION_NAME}-frontend"
                         // Check if the namespace exists
-                        def nsExists = sh(script: "kubectl get namespaces -o json | jq -r '.items[] | select(.metadata.name==\"${namespace}\") | .metadata.name' | grep ${namespace}", returnStatus: true)
+                        def nsExists = sh(script: "kubectl get namespaces -o json | jq -r '.items[] | select(.metadata.name==\"${env.APPLICATION_NAME}\") | .metadata.name' | grep ${env.APPLICATION_NAME}", returnStatus: true)
 
 
                         if (nsExists != 0) {
                             echo "Namespace ${env.APPLICATION_NAME} does not exist. Creating it now..."
-                            sh "kubectl create namespace ${namespace}"
+                            sh "kubectl create namespace ${env.APPLICATION_NAME}"
                         } else {
-                            echo "Namespace ${namespace} already exists."
+                            echo "Namespace ${env.APPLICATION_NAME} already exists."
                         }
-                        new helm().deploy(env.APPLICATION_NAME, namespace)
+                        new helm().deploy(env.APPLICATION_NAME)
                     }
                 }
             }
