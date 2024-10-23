@@ -56,7 +56,8 @@ def call(body){
                     script{
                         def namespace = "${env.APPLICATION_NAME}-frontend"
                         // Check if the namespace exists
-                        def nsExists = sh(script: "kubectl get namespace ${namespace} --ignore-not-found", returnStatus: true)
+                        def nsExists = sh(script: "kubectl get namespaces -o json | jq -r '.items[] | select(.metadata.name==\"${namespace}\") | .metadata.name' | grep ${namespace}", returnStatus: true)
+
 
                         if (nsExists != 0) {
                             echo "Namespace ${env.APPLICATION_NAME} does not exist. Creating it now..."
