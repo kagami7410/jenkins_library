@@ -6,7 +6,7 @@ def call(body){
     pipeline {
 
         environment {
-            APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squid-corals-frontend"}"
+            APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squidcorals-frontend"}"
         }
 
         agent {
