@@ -55,15 +55,15 @@ def call(body){
                 steps{
                     script{
                         // Check if the namespace exists
-                        def nsExists = sh(script: "kubectl get namespaces -o json | jq -r '.items[] | select(.metadata.name==\"${env.APPLICATION_NAME}\") | .metadata.name' | grep ${env.APPLICATION_NAME}", returnStatus: true)
-
-
-                        if (nsExists != 0) {
-                            echo "Namespace ${env.APPLICATION_NAME} does not exist. Creating it now..."
-                            sh "kubectl create namespace ${env.APPLICATION_NAME}"
-                        } else {
-                            echo "Namespace ${env.APPLICATION_NAME} already exists."
-                        }
+//                        def nsExists = sh(script: "kubectl get namespaces -o json | jq -r '.items[] | select(.metadata.name==\"${env.APPLICATION_NAME}\") | .metadata.name' | grep ${env.APPLICATION_NAME}", returnStatus: true)
+//
+//
+//                        if (nsExists != 0) {
+//                            echo "Namespace ${env.APPLICATION_NAME} does not exist. Creating it now..."
+//                            sh "kubectl create namespace ${env.APPLICATION_NAME}"
+//                        } else {
+//                            echo "Namespace ${env.APPLICATION_NAME} already exists."
+//                        }
                         new helm().deploy(env.APPLICATION_NAME)
                     }
                 }
