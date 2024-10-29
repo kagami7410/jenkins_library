@@ -73,10 +73,10 @@ def call(body){
                                 sh """
                                     /zap/zap.sh -daemon -host 0.0.0.0 -port ${ZAP_PORT} &
                                     sleep 15  # Wait for ZAP to fully start
-                                    /zap/zap-cli --port ${ZAP_PORT} open-url ${TARGET_URL}
-                                    /zap/zap-cli --port ${ZAP_PORT} spider ${TARGET_URL}
-                                    /zap/zap-cli --port ${ZAP_PORT} active-scan ${TARGET_URL}
-                                    /zap/zap-cli --port ${ZAP_PORT} report -o zap-report.html -f html
+                                    zap-cli --port ${ZAP_PORT} open-url ${TARGET_URL}
+                                    zap-cli --port ${ZAP_PORT} spider ${TARGET_URL}
+                                    zap-cli --port ${ZAP_PORT} active-scan ${TARGET_URL}
+                                    zap-cli --port ${ZAP_PORT} report -o zap-report.html -f html
                                     """
                         }
                     }
