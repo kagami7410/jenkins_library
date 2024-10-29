@@ -45,32 +45,22 @@ def call(body){
                 }
             }
 
-            stage('docker build and push') {
-                steps {
-                    script{
-                        new docker().dockerLogin()
-                        new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
-                    }
-                }
-            }
+//            stage('docker build and push') {
+//                steps {
+//                    script{
+//                        new docker().dockerLogin()
+//                        new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
+//                    }
+//                }
+//            }
 
-            stage(' deploy to kubernetes '){
-                steps{
-                    script{
-                        // Check if the namespace exists
-//                        def nsExists = sh(script: "kubectl get namespaces -o json | jq -r '.items[] | select(.metadata.name==\"${env.APPLICATION_NAME}\") | .metadata.name' | grep ${env.APPLICATION_NAME}", returnStatus: true)
-//
-//
-//                        if (nsExists != 0) {
-//                            echo "Namespace ${env.APPLICATION_NAME} does not exist. Creating it now..."
-//                            sh "kubectl create namespace ${env.APPLICATION_NAME}"
-//                        } else {
-//                            echo "Namespace ${env.APPLICATION_NAME} already exists."
-//                        }
-                        new helm().deploy(env.APPLICATION_NAME)
-                    }
-                }
-            }
+//            stage(' deploy to kubernetes '){
+//                steps{
+//                    script{
+//                        new helm().deploy(env.APPLICATION_NAME)
+//                    }
+//                }
+//            }
 
 
 
@@ -81,13 +71,13 @@ def call(body){
                         script {
                                 // Start ZAP in daemon mode and scan the target URL
                                 sh """
-                        zap.sh -daemon -host 0.0.0.0 -port ${ZAP_PORT} &
-                        sleep 15  # Wait for ZAP to fully start
-                        zap-cli --port ${ZAP_PORT} open-url ${TARGET_URL}
-                        zap-cli --port ${ZAP_PORT} spider ${TARGET_URL}
-                        zap-cli --port ${ZAP_PORT} active-scan ${TARGET_URL}
-                        zap-cli --port ${ZAP_PORT} report -o zap-report.html -f html
-                        """
+                                    /zap/zap.sh -daemon -host 0.0.0.0 -port ${ZAP_PORT} &
+                                    sleep 15  # Wait for ZAP to fully start
+                                    zap-cli --port ${ZAP_PORT} open-url ${TARGET_URL}
+                                    /zap/zap-cli --port ${ZAP_PORT} spider ${TARGET_URL}
+                                    zap-cli --port ${ZAP_PORT} active-scan ${TARGET_URL}
+                                    zap-cli --port ${ZAP_PORT} report -o zap-report.html -f html
+                                    """
                         }
                     }
                 }
