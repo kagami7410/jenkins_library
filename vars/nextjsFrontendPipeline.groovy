@@ -8,7 +8,8 @@ def call(body){
         environment {
             APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squidcorals-frontend"}"
 //            APPLICATION_NAME = "${pipelineParams.appName}"
-
+            TARGET_URL = "https://squidcorals.sujantechden.uk"    // Replace with your target application URL
+            ZAP_PORT = "8080"
         }
 
         agent {
@@ -70,6 +71,36 @@ def call(body){
                     }
                 }
             }
+
+
+
+
+            stage('Run ZAP Security Scan'){
+                steps {
+                    container('zap') {
+                        script {
+                                // Start ZAP in daemon mode and scan the target URL
+                                sh """
+                        zap.sh -daemon -host 0.0.0.0 -port ${ZAP_PORT} &
+                        sleep 15  # Wait for ZAP to fully start
+                        zap-cli --port ${ZAP_PORT} open-url ${TARGET_URL}
+                        zap-cli --port ${ZAP_PORT} spider ${TARGET_URL}
+                        zap-cli --port ${ZAP_PORT} active-scan ${TARGET_URL}
+                        zap-cli --port ${ZAP_PORT} report -o zap-report.html -f html
+                        """
+                        }
+                    }
+                }
+                post {
+                    always {
+                        // Archive and publish ZAP HTML report
+                        archiveArtifacts artifacts: 'zap-report.html', allowEmptyArchive: true
+                        publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true,
+                                     reportDir: '.', reportFiles: 'zap-report.html', reportName: 'OWASP ZAP Report'])
+                    }
+                }
+            }
+
         }
     }
 }
