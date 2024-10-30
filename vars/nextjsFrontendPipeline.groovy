@@ -83,7 +83,7 @@ def call(body){
                         // Archive and publish ZAP HTML report
                         archiveArtifacts artifacts: 'zap-report.html', allowEmptyArchive: true
                         publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true,
-                                     reportDir: '.', reportFiles: 'zap-report.html', reportName: 'OWASP ZAP Report'])
+                                     reportDir: '/zap/wrk', reportFiles: 'zap-report.html', reportName: 'OWASP ZAP Report'])
                     }
                 }
             }
