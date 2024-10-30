@@ -71,9 +71,9 @@ def call(body){
                         script {
                                 // Start ZAP in daemon mode and scan the target URL
                                 sh """
-                                    sleep 15  # Wait for ZAP to fully start
+                                    sleep 5  # Wait for ZAP to fully start
                                     mkdir -p /zap/wrk
-                                    zap-baseline.py -t${TARGET_URL} -r zap-report.html      
+                                    /zap/zap-baseline.py -t ${TARGET_URL} -r zap-report.html      
                                     """
                         }
                     }
