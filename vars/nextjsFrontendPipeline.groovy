@@ -71,12 +71,9 @@ def call(body){
                         script {
                                 // Start ZAP in daemon mode and scan the target URL
                                 sh """
-                                    /zap/zap.sh -daemon -host 0.0.0.0 -port ${ZAP_PORT} &
                                     sleep 15  # Wait for ZAP to fully start
-                                    zap-cli --port ${ZAP_PORT} open-url ${TARGET_URL}
-                                    zap-cli --port ${ZAP_PORT} spider ${TARGET_URL}
-                                    zap-cli --port ${ZAP_PORT} active-scan ${TARGET_URL}
-                                    zap-cli --port ${ZAP_PORT} report -o zap-report.html -f html
+                                    mkdir -p /zap/wrk
+                                    zap-baseline.py -t${TARGET_URL} -r zap-report.html      
                                     """
                         }
                     }
