@@ -105,10 +105,12 @@ def call(body){
                                  keepAll    : true,  // Optional: set to true if you want to keep reports for each build
                                  allowMissing : false  // Set to true if you want to avoid errors if the report is missing
                     ])
-                    if (ZapScanExitCode != 0) {
-                        echo "ZAP baseline scan failed with exit code: ${exitCode}"
-                        currentBuild.result = 'FAILURE' // Mark the build as failed
-                        error("Stopping pipeline due to ZAP failure")
+                    script{
+                        if (ZapScanExitCode != 0) {
+                            echo "ZAP baseline scan failed with exit code: ${exitCode}"
+                            currentBuild.result = 'FAILURE' // Mark the build as failed
+                            error("Stopping pipeline due to ZAP failure")
+                        }
                     }
                 }
             }
