@@ -82,7 +82,7 @@ def call(body){
                                     """,
                                     returnStatus: true)
 
-                            archiveArtifacts artifacts: "/zap/wrk/${REPORT_DIR}/*.html, ${REPORT_DIR}/*.json", allowEmptyArchive: true
+                            archiveArtifacts artifacts: "/zap/wrk/${REPORT_DIR}/*.html, /zap/wrk/${REPORT_DIR}/{REPORT_DIR}/*.json", allowEmptyArchive: true
 
                         }
                     }
