@@ -97,9 +97,9 @@ def call(body){
                                  reportFiles: "${REPORT_FILE}",
                                  reportName : 'OWASP ZAP Report',
                                  alwaysLinkToLastBuild: true,
-                                 keepAll    : true  // Optional: set to true if you want to keep reports for each build
+                                 keepAll    : true,  // Optional: set to true if you want to keep reports for each build
+                                 allowMissing : false  // Set to true if you want to avoid errors if the report is missing
                     ])
-
                 }
             }
         }
