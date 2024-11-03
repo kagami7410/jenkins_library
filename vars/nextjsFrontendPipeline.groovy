@@ -78,7 +78,9 @@ def call(body){
                                     -t ${TARGET_URL} \
                                     -r ${REPORT_DIR}/${REPORT_FILE} \
                                     -J ${REPORT_DIR}/zap_report.json 
-                                    """, returnStatus: true)
+                                    """,
+                                    returnStdout: true,
+                                    returnStatus: true)
 
                             if (exitCode != 0) {
                                 echo "ZAP baseline scan failed with exit code: ${exitCode}"
