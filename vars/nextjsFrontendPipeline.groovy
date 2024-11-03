@@ -88,7 +88,7 @@ def call(body){
                                cat /zap/wrk/${REPORT_DIR}/${REPORT_FILE}
                             """
 
-                            archiveArtifacts artifacts: "/home/jenkins/agent/workspace/squid-corals-frontend/zap/wrk/${REPORT_DIR}/*.html, /home/jenkins/agent/workspace/squid-corals-frontend/zap/wrk/${REPORT_DIR}/{REPORT_DIR}/*.json", allowEmptyArchive: true
+                            archiveArtifacts artifacts: "/home/jenkins/agent/workspace/squid-corals-frontend/zap/wrk/zap_reports/zap_report.html, /home/jenkins/agent/workspace/squid-corals-frontend/zap/wrk//zap/wrk/zap_reports/zap_report.json", allowEmptyArchive: true
 
                         }
                     }
