@@ -89,7 +89,7 @@ def call(body){
                                sleep 20
                             """
 
-                            archiveArtifacts artifacts: "/zap/wrk/zap_reports/zap_report.html, /zap/wrk/zap_reports/zap_report.json", allowEmptyArchive: true
+                            archiveArtifacts artifacts: "**/zap_report.html, allowEmptyArchive: true"
 
                         }
                     }
