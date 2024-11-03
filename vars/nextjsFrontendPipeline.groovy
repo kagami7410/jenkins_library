@@ -4,7 +4,7 @@ def call(body){
 
     def pipelineParams = [:]
     pipeline {
-         def ZapScanExitCode;
+         def ZapScanExitCode = 0;
 
         environment {
             APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squidcorals-frontend"}"
