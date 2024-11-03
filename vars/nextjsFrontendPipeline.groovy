@@ -6,6 +6,7 @@ def call(body){
     pipeline {
 
         environment {
+            def ZapScanExitCode = 0;
             APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squidcorals-frontend"}"
 //            APPLICATION_NAME = "${pipelineParams.appName}"
             TARGET_URL = "https://squidcorals.sujantechden.uk"    // Replace with your target application URL
@@ -27,7 +28,6 @@ def call(body){
         }
 
         stages {
-            def ZapScanExitCode = 0;
             stage('set up') {
                 steps {
                     container('node18-container'){
