@@ -69,15 +69,22 @@ def call(body){
                 steps {
                     container('zap') {
                         script {
+                            def exitCode = sh(script:
                                 // Start ZAP in daemon mode and scan the target URL
-                                sh """
+                                 """
                                     mkdir  -p /zap/wrk/zap_reports 
                                     chmod +755 /zap/wrk/zap_reports 
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
                                     -r ${REPORT_DIR}/${REPORT_FILE} \
                                     -J ${REPORT_DIR}/zap_report.json 
-                                    """
+                                    """, returnStatus: true)
+
+                            if (exitCode != 0) {
+                                echo "ZAP baseline scan failed with exit code: ${exitCode}"
+                                currentBuild.result = 'FAILURE' // Mark the build as failed
+                                error("Stopping pipeline due to ZAP failure")
+                            }
                         }
                     }
                 }
