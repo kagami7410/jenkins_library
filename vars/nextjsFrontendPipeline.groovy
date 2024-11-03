@@ -10,6 +10,8 @@ def call(body){
 //            APPLICATION_NAME = "${pipelineParams.appName}"
             TARGET_URL = "https://squidcorals.sujantechden.uk"    // Replace with your target application URL
             ZAP_PORT = "8080"
+            REPORT_DIR = 'zap_reports'
+            REPORT_FILE = 'zap_report.html'
         }
 
         agent {
@@ -69,23 +71,39 @@ def call(body){
                         script {
                                 // Start ZAP in daemon mode and scan the target URL
                                 sh """
-                                    sleep 5  # Wait for ZAP to fully start
-                                    mkdir -p /zap/wrk
-                                    chmod -R 755 /zap/wrk
-                                    /zap/zap-baseline.py -t${TARGET_URL} -r zap-report.html
-                                    cat /zap/wrk/zap-report.html      
+                                    python3 /zap/zap-baseline.py 
+                                    -t ${TARGET_URL} 
+                                    -r ${REPORT_DIR}/${REPORT_FILE} 
+                                    -J ${REPORT_DIR}/zap_report.json 
                                     """
                         }
                     }
                 }
-                post {
-                    always {
-                        // Archive and publish ZAP HTML report
-                        archiveArtifacts artifacts: 'zap-report.html', allowEmptyArchive: true
-                        publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true,
-                                     reportDir: '.', reportFiles: 'zap-report.html', reportName: 'OWASP ZAP Report'])
-                    }
+            }
+
+
+
+            stage('Archive Report') {
+                steps {
+                    // Archive the HTML and JSON report in Jenkins
+                    archiveArtifacts artifacts: "${REPORT_DIR}/*.html, ${REPORT_DIR}/*.json", allowEmptyArchive: true
                 }
+            }
+
+
+            stage('Publish Report') {
+                steps {
+                    // Publish the HTML report for viewing in Jenkins
+                    publishHTML([reportDir  : "${REPORT_DIR}",
+                                 reportFiles: "${REPORT_FILE}",
+                                 reportName : 'OWASP ZAP Report'])
+                }
+            }
+        }
+        post {
+            always {
+                // Clean up ZAP sessions or any generated files if necessary
+                cleanWs()
             }
         }
     }
