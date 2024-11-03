@@ -79,7 +79,6 @@ def call(body){
                                     -r ${REPORT_DIR}/${REPORT_FILE} \
                                     -J ${REPORT_DIR}/zap_report.json 
                                     """,
-                                    returnStdout: true,
                                     returnStatus: true)
 
                             if (exitCode != 0) {
