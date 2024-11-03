@@ -88,7 +88,7 @@ def call(body){
                                ls
                             """
 
-                            archiveArtifacts artifacts: "/home/jenkins/agent/workspace/squid-corals-frontend/zap/wrk/zap_reports/zap_report.html, /home/jenkins/agent/workspace/squid-corals-frontend/zap/wrk//zap/wrk/zap_reports/zap_report.json", allowEmptyArchive: true
+                            archiveArtifacts artifacts: "/zap/wrk/zap_reports/zap_report.html, /zap/wrk/zap_reports/zap_report.json", allowEmptyArchive: true
 
                         }
                     }
