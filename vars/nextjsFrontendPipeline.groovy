@@ -71,9 +71,9 @@ def call(body){
                         script {
                                 // Start ZAP in daemon mode and scan the target URL
                                 sh """
-                                    /zap/zap-baseline.py 
-                                    -t ${TARGET_URL} 
-                                    -r ${REPORT_DIR}/${REPORT_FILE} 
+                                    python3 /zap/zap-baseline.py \
+                                    -t ${TARGET_URL} \
+                                    -r ${REPORT_DIR}/${REPORT_FILE} \
                                     -J ${REPORT_DIR}/zap_report.json 
                                     """
                         }
