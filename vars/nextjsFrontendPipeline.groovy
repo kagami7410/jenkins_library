@@ -88,7 +88,7 @@ def call(body){
                                ls
                             """
 
-                            archiveArtifacts artifacts: "${REPORT_FILE}, allowEmptyArchive: true"
+                            archiveArtifacts artifacts: "wrk/zap_reports/${REPORT_FILE}, allowEmptyArchive: true"
 
                         }
                     }
