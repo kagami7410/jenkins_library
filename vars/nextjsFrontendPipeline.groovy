@@ -63,8 +63,6 @@ def call(body){
 //            }
 
 
-
-
             stage('Run ZAP Security Scan'){
                 steps {
                     container('zap') {
@@ -73,7 +71,7 @@ def call(body){
                                 sh """
                                     sleep 5  # Wait for ZAP to fully start
                                     mkdir -p /zap/wrk
-                                    /zap/zap-baseline.py -t ${TARGET_URL} -r zap-report.html      
+                                    /zap/zap-baseline.py -t${TARGET_URL} -r zap-report.html      
                                     """
                         }
                     }
@@ -87,7 +85,6 @@ def call(body){
                     }
                 }
             }
-
         }
     }
 }
