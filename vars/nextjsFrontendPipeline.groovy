@@ -79,10 +79,14 @@ def call(body){
                                     -t ${TARGET_URL} \
                                     -r ${REPORT_DIR}/${REPORT_FILE} \
                                     -J ${REPORT_DIR}/zap_report.json 
-                                    ls
-                                    pwd
                                     """,
                                     returnStatus: true)
+
+                            sh """
+                               ls
+                               pwd
+                               cat /zap/wrk/${REPORT_DIR}/${REPORT_FILE}
+                            """
 
                             archiveArtifacts artifacts: "/zap/wrk/${REPORT_DIR}/*.html, /zap/wrk/${REPORT_DIR}/{REPORT_DIR}/*.json", allowEmptyArchive: true
 
