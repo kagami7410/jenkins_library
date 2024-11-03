@@ -88,7 +88,7 @@ def call(body){
                                ls
                             """
 
-                            archiveArtifacts artifacts: "*.html, allowEmptyArchive: true"
+                            archiveArtifacts artifacts: "${REPORT_FILE}, allowEmptyArchive: true"
 
                         }
                     }
