@@ -82,7 +82,6 @@ def call(body){
             }
 
 
-
             stage('Archive Report') {
                 steps {
                     // Archive the HTML and JSON report in Jenkins
@@ -96,7 +95,10 @@ def call(body){
                     // Publish the HTML report for viewing in Jenkins
                     publishHTML([reportDir  : "${REPORT_DIR}",
                                  reportFiles: "${REPORT_FILE}",
-                                 reportName : 'OWASP ZAP Report'])
+                                 reportName : 'OWASP ZAP Report',
+                                 keepAll    : true  // Optional: set to true if you want to keep reports for each build
+                    ])
+
                 }
             }
         }
