@@ -81,18 +81,21 @@ def call(body){
                                     -J ${REPORT_DIR}/zap_report.json 
                                     """,
                                     returnStatus: true)
+
+                            archiveArtifacts artifacts: "${REPORT_DIR}/*.html, ${REPORT_DIR}/*.json", allowEmptyArchive: true
+
                         }
                     }
                 }
             }
 
 
-            stage('Archive Report') {
-                steps {
-                    // Archive the HTML and JSON report in Jenkins
-                    archiveArtifacts artifacts: "${REPORT_DIR}/*.html, ${REPORT_DIR}/*.json", allowEmptyArchive: true
-                }
-            }
+//            stage('Archive Report') {
+//                steps {
+//                    // Archive the HTML and JSON report in Jenkins
+//                    archiveArtifacts artifacts: "${REPORT_DIR}/*.html, ${REPORT_DIR}/*.json", allowEmptyArchive: true
+//                }
+//            }
 
 
             stage('Publish Report') {
