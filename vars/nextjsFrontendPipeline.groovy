@@ -86,10 +86,9 @@ def call(body){
                                cd /zap/wrk/${REPORT_DIR}
                                pwd
                                ls
-                               sleep 20
                             """
 
-                            archiveArtifacts artifacts: "**/zap_report.html, allowEmptyArchive: true"
+                            archiveArtifacts artifacts: "*.html, allowEmptyArchive: true"
 
                         }
                     }
