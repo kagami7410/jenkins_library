@@ -4,6 +4,7 @@ def call(body){
 
     def pipelineParams = [:]
     pipeline {
+         def ZapScanExitCode;
 
         environment {
             APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squidcorals-frontend"}"
@@ -69,7 +70,7 @@ def call(body){
                 steps {
                     container('zap') {
                         script {
-                            def exitCode = sh(script:
+                            ZapScanExitCode = sh(script:
                                 // Start ZAP in daemon mode and scan the target URL
                                  """
                                     mkdir  -p /zap/wrk/zap_reports 
@@ -80,12 +81,6 @@ def call(body){
                                     -J ${REPORT_DIR}/zap_report.json 
                                     """,
                                     returnStatus: true)
-
-                            if (exitCode != 0) {
-                                echo "ZAP baseline scan failed with exit code: ${exitCode}"
-                                currentBuild.result = 'FAILURE' // Mark the build as failed
-                                error("Stopping pipeline due to ZAP failure")
-                            }
                         }
                     }
                 }
@@ -110,6 +105,12 @@ def call(body){
                                  keepAll    : true,  // Optional: set to true if you want to keep reports for each build
                                  allowMissing : false  // Set to true if you want to avoid errors if the report is missing
                     ])
+                }
+
+                if (ZapScanExitCode != 0) {
+                    echo "ZAP baseline scan failed with exit code: ${exitCode}"
+                    currentBuild.result = 'FAILURE' // Mark the build as failed
+                    error("Stopping pipeline due to ZAP failure")
                 }
             }
         }
