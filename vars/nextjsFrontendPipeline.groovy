@@ -71,7 +71,9 @@ def call(body){
                                 sh """
                                     sleep 5  # Wait for ZAP to fully start
                                     mkdir -p /zap/wrk
-                                    /zap/zap-baseline.py -t${TARGET_URL} -r zap-report.html      
+                                    chmod -R 755 /zap/wrk
+                                    /zap/zap-baseline.py -t${TARGET_URL} -r zap-report.html
+                                    cat /zap/wrk/zap-report.html      
                                     """
                         }
                     }
@@ -81,7 +83,7 @@ def call(body){
                         // Archive and publish ZAP HTML report
                         archiveArtifacts artifacts: 'zap-report.html', allowEmptyArchive: true
                         publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true,
-                                     reportDir: '/zap/wrk', reportFiles: 'zap-report.html', reportName: 'OWASP ZAP Report'])
+                                     reportDir: '.', reportFiles: 'zap-report.html', reportName: 'OWASP ZAP Report'])
                     }
                 }
             }
