@@ -83,9 +83,9 @@ def call(body){
                                     returnStatus: true)
 
                             sh """
-                               ls
+                               cd /zap/wrk/${REPORT_DIR}
                                pwd
-                               cat /zap/wrk/${REPORT_DIR}/${REPORT_FILE}
+                               ls
                             """
 
                             archiveArtifacts artifacts: "/home/jenkins/agent/workspace/squid-corals-frontend/zap/wrk/zap_reports/zap_report.html, /home/jenkins/agent/workspace/squid-corals-frontend/zap/wrk//zap/wrk/zap_reports/zap_report.json", allowEmptyArchive: true
