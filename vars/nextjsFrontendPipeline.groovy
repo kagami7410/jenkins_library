@@ -98,7 +98,7 @@ def call(body){
             stage('Archive Report') {
                 steps {
                     // Archive the HTML and JSON report in Jenkins
-                    archiveArtifacts artifacts: "**/*.html, ${REPORT_DIR}/*.json", allowEmptyArchive: true
+                    archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
                 }
             }
 
