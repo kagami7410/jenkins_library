@@ -106,7 +106,7 @@ def call(body){
             stage('Publish Report') {
                 steps {
                     // Publish the HTML report for viewing in Jenkins
-                    publishHTML([reportDir  : "${REPORT_DIR}",
+                    publishHTML([reportDir  : "/zap/wrk/${REPORT_DIR}",
                                  reportFiles: "${REPORT_FILE}",
                                  reportName : 'OWASP ZAP Report',
                                  alwaysLinkToLastBuild: true,
