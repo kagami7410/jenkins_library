@@ -88,7 +88,6 @@ def call(body){
                                ls
                             """
 
-                            archiveArtifacts artifacts: "zap_reports/${REPORT_FILE}, allowEmptyArchive: true"
 
                         }
                     }
@@ -96,12 +95,12 @@ def call(body){
             }
 
 
-//            stage('Archive Report') {
-//                steps {
-//                    // Archive the HTML and JSON report in Jenkins
-//                    archiveArtifacts artifacts: "${REPORT_DIR}/*.html, ${REPORT_DIR}/*.json", allowEmptyArchive: true
-//                }
-//            }
+            stage('Archive Report') {
+                steps {
+                    // Archive the HTML and JSON report in Jenkins
+                    archiveArtifacts artifacts: "${REPORT_DIR}/*.html, ${REPORT_DIR}/*.json", allowEmptyArchive: true
+                }
+            }
 
 
             stage('Publish Report') {
