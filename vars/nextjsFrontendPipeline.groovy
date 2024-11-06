@@ -83,6 +83,7 @@ def call(body){
                                     returnStatus: true)
 
                             sh """
+                               sleep 200
                                cd /zap/wrk/${REPORT_DIR}
                                pwd
                                ls
