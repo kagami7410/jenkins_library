@@ -85,11 +85,13 @@ def call(body){
                             sh """
                                pwd
                                ls
-                               sleep 200
                                cd /zap/wrk/${REPORT_DIR}
                                pwd
                                ls
                             """
+
+                            archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
+
 
 
                         }
