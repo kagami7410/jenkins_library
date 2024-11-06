@@ -90,7 +90,7 @@ def call(body){
                                ls
                             """
 
-                            archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
+                            archiveArtifacts artifacts: "${REPORT_DIR}/${REPORT_FILE}, allowEmptyArchive: true"
 
 
 
