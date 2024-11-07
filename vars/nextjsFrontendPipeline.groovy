@@ -73,8 +73,8 @@ def call(body){
                             ZapScanExitCode = sh(script:
                                 // Start ZAP in daemon mode and scan the target URL
                                  """
-                                    mkdir  -p /zap/wrk/zap_reports 
-                                    chmod +755 /zap/wrk/zap_reports 
+                                    mkdir -p wrk/zap_reports 
+                                    chmod +755 wrk/zap_reports 
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
                                     -r ${REPORT_DIR}/${REPORT_FILE} \
@@ -83,11 +83,12 @@ def call(body){
                                     returnStatus: true)
 
                             sh """
-                               pwd
-                               ls
                                cd /zap/wrk/${REPORT_DIR}
+                               echo "this is testfile!" > testfile.txt
+                               sleep 200
                                pwd
                                ls
+
                             """
 
                             archiveArtifacts artifacts: "wrk/${REPORT_DIR}/${REPORT_FILE}, allowEmptyArchive: true"
