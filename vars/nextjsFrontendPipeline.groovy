@@ -83,7 +83,7 @@ def call(body){
                                     returnStatus: true)
 
                             sh """
-                               cd /zap/wrk/${REPORT_DIR}
+                               cd wrk/${REPORT_DIR}
                                echo "this is testfile!" > testfile.txt
                                sleep 200
                                pwd
