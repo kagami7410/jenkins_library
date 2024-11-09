@@ -66,7 +66,7 @@ def call(body){
                             path: "/var/run/docker.sock"
                         - name: extra-volume
                           hostPath:
-                            path: "/zap/wrk"
+                            path: "/tmp/zap/wrk"
                     """
             }
         }
@@ -147,8 +147,10 @@ def call(body){
                                echo "this is testfile!" > testfile.txt
                                pwd
                                ls -ltr
+                               sleep 200
 
                             """
+
 
                             archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
 
