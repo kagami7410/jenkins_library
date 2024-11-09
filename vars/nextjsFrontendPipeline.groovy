@@ -108,6 +108,10 @@ def call(body){
             stage('Publish Report') {
                 steps {
 
+                    sh """
+
+                        sleep 200
+                       """
                     // Publish the HTML report for viewing in Jenkins
                     publishHTML([reportDir  : "/zap/wrk/${REPORT_DIR}",
                                  reportFiles: "${REPORT_FILE}",
