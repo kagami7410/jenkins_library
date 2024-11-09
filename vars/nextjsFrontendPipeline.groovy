@@ -75,7 +75,7 @@ def call(body){
                                 // Start ZAP in daemon mode and scan the target URL
                                  """
                                     mkdir -p wrk/zap_reports 
-                                    chmod +755 wrk/zap_reports 
+                                    chmod +777 wrk/zap_reports 
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
                                     -r wrk/${REPORT_DIR}/${REPORT_FILE} \
