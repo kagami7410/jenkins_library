@@ -47,10 +47,7 @@ def call(body){
                           image: ghcr.io/zaproxy/zaproxy:stable
                           command: [ "cat"]
                           tty: true   
-                          volumeMounts:
-                          - name: extra-volume
-                            mountPath: "/zap/wrk"
-                            readOnly: false
+
                         - name: node18-container
                           image: node:18
                           command: [ "cat"]
