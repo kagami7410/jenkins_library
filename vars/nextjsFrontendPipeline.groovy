@@ -17,10 +17,6 @@ def call(body){
 
         agent {
 
-            docker {
-                image 'zap'
-                args '-v /:/zap/wrk'
-            }
             kubernetes{
                 inheritFrom 'kube-agent'
                 defaultContainer 'agent-container'
