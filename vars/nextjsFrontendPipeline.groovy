@@ -121,6 +121,8 @@ def call(body){
                             ZapScanExitCode = sh(script:
                                 // Start ZAP in daemon mode and scan the target URL
                                  """
+                                    mkdir -p /zap/wrk/zap_reports 
+                                    chmod +777 /zap/wrk/zap_reports 
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
                                     -r /zap/wrk/${REPORT_DIR}/${REPORT_FILE} \
