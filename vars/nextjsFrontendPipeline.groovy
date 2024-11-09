@@ -81,13 +81,13 @@ def call(body){
                                     """,
                                     returnStatus: true)
 
-                            sh """
-                               cd /zap/wrk/${REPORT_DIR}
-                               echo "this is testfile!" > testfile.txt
-                               pwd
-                               ls -ltr
-
-                            """
+//                            sh """
+//                               cd /zap/wrk/${REPORT_DIR}
+//                               echo "this is testfile!" > testfile.txt
+//                               pwd
+//                               ls -ltr
+//
+//                            """
 
 
 
