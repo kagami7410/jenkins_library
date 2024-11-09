@@ -131,7 +131,7 @@ def call(body){
 
                             """
 
-                            archiveArtifacts artifacts: "${REPORT_FILE}, allowEmptyArchive: true"
+                            archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
 
 
 
