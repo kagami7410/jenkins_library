@@ -131,7 +131,7 @@ def call(body){
 
                             """
 
-                            archiveArtifacts artifacts: "wrk/${REPORT_DIR}/${REPORT_FILE}, allowEmptyArchive: true"
+                            archiveArtifacts artifacts: "${REPORT_FILE}, allowEmptyArchive: true"
 
 
 
