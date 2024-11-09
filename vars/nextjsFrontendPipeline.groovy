@@ -133,7 +133,21 @@ def call(body){
 
                             archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
 
-
+                            // Publish the HTML report for viewing in Jenkins
+                            publishHTML([reportDir  : "/zap/wrk/${REPORT_DIR}",
+                                         reportFiles: "${REPORT_FILE}",
+                                         reportName : 'OWASP ZAP Report',
+                                         alwaysLinkToLastBuild: true,
+                                         keepAll    : true,  // Optional: set to true if you want to keep reports for each build
+                                         allowMissing : false  // Set to true if you want to avoid errors if the report is missing
+                            ])
+                            script{
+                                if (ZapScanExitCode != 0) {
+                                    echo "ZAP baseline scan failed with exit code: ${exitCode}"
+                                    currentBuild.result = 'FAILURE' // Mark the build as failed
+                                    error("Stopping pipeline due to ZAP failure")
+                                }
+                            }
 
                         }
                     }
@@ -141,38 +155,24 @@ def call(body){
             }
 
 
-            stage('Archive Report') {
-                steps {
-                    // Archive the HTML and JSON report in Jenkins
-                    archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
-                }
-            }
-
-
-            stage('Publish Report') {
-                steps {
-
-                    sh """
-
-                        sleep 200
-                       """
-                    // Publish the HTML report for viewing in Jenkins
-                    publishHTML([reportDir  : "/zap/wrk/${REPORT_DIR}",
-                                 reportFiles: "${REPORT_FILE}",
-                                 reportName : 'OWASP ZAP Report',
-                                 alwaysLinkToLastBuild: true,
-                                 keepAll    : true,  // Optional: set to true if you want to keep reports for each build
-                                 allowMissing : false  // Set to true if you want to avoid errors if the report is missing
-                    ])
-                    script{
-                        if (ZapScanExitCode != 0) {
-                            echo "ZAP baseline scan failed with exit code: ${exitCode}"
-                            currentBuild.result = 'FAILURE' // Mark the build as failed
-                            error("Stopping pipeline due to ZAP failure")
-                        }
-                    }
-                }
-            }
+//            stage('Archive Report') {
+//                steps {
+//                    // Archive the HTML and JSON report in Jenkins
+//                    archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
+//                }
+//            }
+//
+//
+//            stage('Publish Report') {
+//                steps {
+//
+//                    sh """
+//
+//                        sleep 200
+//                       """
+//
+//                }
+//            }
         }
         post {
             always {
