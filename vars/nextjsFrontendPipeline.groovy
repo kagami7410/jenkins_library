@@ -127,8 +127,8 @@ def call(body){
 
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
-                                    -r /${REPORT_DIR}/${REPORT_FILE} \
-                                    -J /${REPORT_DIR}/zap_report.json
+                                    -r zap/wrk/${REPORT_DIR}/${REPORT_FILE} \
+                                    -J zap/wrk/${REPORT_DIR}/zap_report.json
                                     """,
                                     returnStatus: true)
 
@@ -157,7 +157,7 @@ def call(body){
                             archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
 
                             // Publish the HTML report for viewing in Jenkins
-                            publishHTML([reportDir  : "/zap/wrk/${REPORT_DIR}",
+                            publishHTML([reportDir  : "zap/wrk/${REPORT_DIR}",
                                          reportFiles: "${REPORT_FILE}",
                                          reportName : 'OWASP ZAP Report',
                                          alwaysLinkToLastBuild: true,
