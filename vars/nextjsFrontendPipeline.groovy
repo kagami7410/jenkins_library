@@ -124,6 +124,8 @@ def call(body){
                                  """
                                     mkdir -p /zap/wrk/zap_reports
                                     chmod +777 /zap/wrk/zap_reports
+                                    mkdir -p wrk/zap_reports
+                                    chmod +777 wrk/zap_reports
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
                                     -r /${REPORT_DIR}/${REPORT_FILE} \
@@ -144,6 +146,10 @@ def call(body){
 
                             sh """
                                cd /zap/wrk/${REPORT_DIR}
+                               echo "this is testfile!" > testfile.txt
+                               pwd
+
+                               cd wrk/${REPORT_DIR}
                                echo "this is testfile!" > testfile.txt
                                pwd
                                ls -ltr
