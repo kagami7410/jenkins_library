@@ -118,8 +118,8 @@ def call(body){
                                     chmod +777 /zap/wrk/zap_reports 
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
-                                    -r /zap/wrk/${REPORT_DIR}/${REPORT_FILE} \
-                                    -J /zap/wrk/${REPORT_DIR}/zap_report.json 
+                                    -r /${REPORT_DIR}/${REPORT_FILE} \
+                                    -J /${REPORT_DIR}/zap_report.json 
                                     """,
                                     returnStatus: true)
 
