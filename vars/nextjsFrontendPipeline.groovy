@@ -18,56 +18,54 @@ def call(body){
         agent {
 
             kubernetes{
-//                inheritFrom 'kube-agent'
-//                defaultContainer 'agent-container'
-//                serviceAccount 'jenkins-admin'
+                inheritFrom 'kube-agent'
+                defaultContainer 'agent-container'
+                serviceAccount 'jenkins-admin'
 
-
-
-                yaml """
-                    apiVersion: v1
-                    kind: Pod
-                    spec:
-                        containers:
-                        - name: agent-container
-                          image: sujan7410/kubernetes-agent:v1.0.2
-                          imagePullPolicy: Always 
-                          command: [ "cat"]
-                          tty: true
-                          resources:
-                            requests:
-                              ephemeral-storage: 2Gi
-                            limits:
-                              ephemeral-storage: 4Gi
-                          volumeMounts:                          
-                          - name: docker-sock-volume
-                            mountPath: /var/run/docker.sock
-                            readOnly: false
-                        - name: zap
-                          image: ghcr.io/zaproxy/zaproxy:stable
-                          command: [ "cat"]
-                          tty: true   
-                          volumeMounts:
-                          - name: extra-volume
-                            mountPath: "/zap/wrk/"
-                            readOnly: false
-                        - name: node18-container
-                          image: node:18
-                          command: [ "cat"]
-                          tty: true     
-                          resources:
-                            requests:
-                              ephemeral-storage: 2Gi
-                            limits:
-                              ephemeral-storage: 4Gi
-                        volumes:
-                        - name: docker-sock-volume
-                          hostPath:
-                            path: "/var/run/docker.sock"
-                        - name: extra-volume
-                          hostPath:
-                            path: "/tmp/"
-                    """
+//                yaml """
+//                    apiVersion: v1
+//                    kind: Pod
+//                    spec:
+//                        containers:
+//                        - name: agent-container
+//                          image: sujan7410/kubernetes-agent:v1.0.2
+//                          imagePullPolicy: Always
+//                          command: [ "cat"]
+//                          tty: true
+//                          resources:
+//                            requests:
+//                              ephemeral-storage: 2Gi
+//                            limits:
+//                              ephemeral-storage: 4Gi
+//                          volumeMounts:
+//                          - name: docker-sock-volume
+//                            mountPath: /var/run/docker.sock
+//                            readOnly: false
+//                        - name: zap
+//                          image: ghcr.io/zaproxy/zaproxy:stable
+//                          command: [ "cat"]
+//                          tty: true
+//                          volumeMounts:
+//                          - name: extra-volume
+//                            mountPath: "/zap/wrk/"
+//                            readOnly: false
+//                        - name: node18-container
+//                          image: node:18
+//                          command: [ "cat"]
+//                          tty: true
+//                          resources:
+//                            requests:
+//                              ephemeral-storage: 2Gi
+//                            limits:
+//                              ephemeral-storage: 4Gi
+//                        volumes:
+//                        - name: docker-sock-volume
+//                          hostPath:
+//                            path: "/var/run/docker.sock"
+//                        - name: extra-volume
+//                          hostPath:
+//                            path: "/tmp/"
+//                    """
             }
         }
 
@@ -130,13 +128,15 @@ def call(body){
                                     """,
                                     returnStatus: true)
 
-//                            sh """
-//                               cd /zap/wrk/${REPORT_DIR}
-//                               echo "this is testfile!" > testfile.txt
-//                               pwd
-//                               ls -ltr
-//
-//                            """
+                            sh """
+                               cd /zap/wrk/${REPORT_DIR}
+                               echo "this is testfile!" > testfile.txt
+                               pwd
+                               ls -ltr
+
+                            """
+
+                            archiveArtifacts artifacts: "wrk/${REPORT_DIR}/${REPORT_FILE}, allowEmptyArchive: true"
 
 
 
