@@ -90,6 +90,7 @@ def call(body){
                                ls -ltr
 
                             """
+                            archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
 
 
 
