@@ -16,6 +16,11 @@ def call(body){
         }
 
         agent {
+
+            docker {
+                image 'zap'
+                args '-v /:/zap/wrk'
+            }
             kubernetes{
                 inheritFrom 'kube-agent'
                 defaultContainer 'agent-container'
@@ -77,8 +82,8 @@ def call(body){
                                     chmod +777 wrk/zap_reports 
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
-                                    -r wrk/${REPORT_DIR}/${REPORT_FILE} \
-                                    -J wrk/${REPORT_DIR}/zap_report.json 
+                                    -r /home/jenkins/agent/workspace/squid-corals-frontend/zap/wrk/${REPORT_DIR}/${REPORT_FILE} \
+                                    -J /home/jenkins/agent/workspace/squid-corals-frontend/zap/wrk/${REPORT_DIR}/zap_report.json 
                                     """,
                                     returnStatus: true)
 
