@@ -20,7 +20,6 @@ def call(body){
                 inheritFrom 'kube-agent'
                 defaultContainer 'agent-container'
                 serviceAccount 'jenkins-admin'
-                args '-v ${WORKSPACE}/zap/wrk:/zap/wrk'
             }
         }
 
