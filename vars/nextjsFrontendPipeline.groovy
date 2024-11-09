@@ -66,7 +66,7 @@ def call(body){
                             path: "/var/run/docker.sock"
                         - name: extra-volume
                           hostPath:
-                            path: "/zap/wrk"
+                            path: "/tmp"
                     """
             }
         }
