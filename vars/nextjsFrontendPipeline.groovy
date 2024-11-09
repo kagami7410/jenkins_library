@@ -85,9 +85,8 @@ def call(body){
                             sh """
                                cd wrk/${REPORT_DIR}
                                echo "this is testfile!" > testfile.txt
-                               sleep 200
                                pwd
-                               ls
+                               ls -ltr
 
                             """
 
