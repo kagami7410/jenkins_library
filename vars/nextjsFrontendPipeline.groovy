@@ -45,11 +45,16 @@ def call(body){
                           image: ghcr.io/zaproxy/zaproxy:stable
                           command: [ "cat"]
                           tty: true
-
+                          securityContext:
+                            runAsUser: 0
+                          volumeMounts:
+                          - name: extra-volume
+                            mountPath: "/zap/wrk"
+                            readOnly: false
                         - name: node18-container
                           image: node:18
                           command: [ "cat"]
-                          tty: true
+                          tty: true     
                           resources:
                             requests:
                               ephemeral-storage: 2Gi
@@ -59,7 +64,9 @@ def call(body){
                         - name: docker-sock-volume
                           hostPath:
                             path: "/var/run/docker.sock"
-
+                        - name: extra-volume
+                          hostPath:
+                            path: "/zap/wrk"
                     """
             }
         }
@@ -111,11 +118,23 @@ def call(body){
                 steps {
                     container('zap') {
                         script {
+                            // Start ZAP in daemon mode and scan the target URL
+
+//                            ZapScanExitCode = sh(script:
+//                                 """
+//                                    mkdir -p /zap/wrk/zap_reports
+//                                    chmod +777 /zap/wrk/zap_reports
+//                                    python3 /zap/zap-baseline.py \
+//                                    -t ${TARGET_URL} \
+//                                    -r /${REPORT_DIR}/${REPORT_FILE} \
+//                                    -J /${REPORT_DIR}/zap_report.json
+//                                    """,
+//                                    returnStatus: true)
+
+
+
                             ZapScanExitCode = sh(script:
-                                // Start ZAP in daemon mode and scan the target URL
                                  """
-                                    mkdir -p /zap/wrk/zap_reports 
-                                    chmod +777 /zap/wrk/zap_reports 
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
                                     -r /${REPORT_DIR}/${REPORT_FILE} \
