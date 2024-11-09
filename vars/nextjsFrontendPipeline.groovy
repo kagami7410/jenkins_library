@@ -122,10 +122,9 @@ def call(body){
 
                             ZapScanExitCode = sh(script:
                                  """
-                                    mkdir -p /zap/wrk/zap_reports
-                                    chmod +777 /zap/wrk/zap_reports
-                                    mkdir test
-                                    chmod +777 test
+                                    mkdir -p zap/wrk/zap_reports
+                                    chmod +777 zap/wrk/zap_reports
+
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
                                     -r /${REPORT_DIR}/${REPORT_FILE} \
@@ -145,12 +144,7 @@ def call(body){
 //                                    returnStatus: true)
 
                             sh """
-                               cd test
-                               echo "this is testfile!" > testfile.txt
-                               pwd
-                               ls -ltr 
-
-                               cd /zap/wrk/${REPORT_DIR}
+                               cd zap/wrk/${REPORT_DIR}
                                echo "this is testfile!" > testfile.txt
                                pwd
 
