@@ -84,7 +84,7 @@ def call(body){
                                     returnStatus: true)
 
                             sh """
-                               cd wrk/${REPORT_DIR}
+                               cd /zap/wrk/${REPORT_DIR}
                                echo "this is testfile!" > testfile.txt
                                pwd
                                ls -ltr
