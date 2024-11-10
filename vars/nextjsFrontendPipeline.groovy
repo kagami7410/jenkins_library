@@ -145,12 +145,15 @@ def call(body){
                             archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
 
                             // Publish the HTML report for viewing in Jenkins
-                            publishHTML([reportDir  : "zap/wrk/${REPORT_DIR}",
-                                         reportFiles: "${REPORT_FILE}",
-                                         reportName : 'OWASP ZAP Report',
-                                         alwaysLinkToLastBuild: true,
-                                         keepAll    : true,  // Optional: set to true if you want to keep reports for each build
-                                         allowMissing : false  // Set to true if you want to avoid errors if the report is missing
+                            publishHTML([
+                                        reportDir  : "zap/wrk/${REPORT_DIR}",
+                                        reportFiles: "testfile.html",
+//                                        reportFiles: "${REPORT_FILE}",
+
+                                        reportName : 'OWASP ZAP Report',
+                                        alwaysLinkToLastBuild: true,
+                                        keepAll    : true,  // Optional: set to true if you want to keep reports for each build
+                                        allowMissing : false  // Set to true if you want to avoid errors if the report is missing
                             ])
                             script{
                                 if (ZapScanExitCode != 0) {
