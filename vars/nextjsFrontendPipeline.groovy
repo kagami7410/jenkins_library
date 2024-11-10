@@ -125,7 +125,7 @@ def call(body){
                                     mkdir -p zap/wrk/zap_reports
                                     chmod +777 zap/wrk/zap_reports
                                     cd zap/wrk/${REPORT_DIR}
-                                    echo "this is testfile!" > testfile.html
+                                    echo "<h2>this is testfile!<h2>" > testfile.html
                                     pwd
                                     """,
                                     returnStatus: true)
