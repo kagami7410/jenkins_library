@@ -47,10 +47,7 @@ def call(body){
                           tty: true
                           securityContext:
                             runAsUser: 0
-                          volumeMounts:
-                          - name: extra-volume
-                            mountPath: "/zap"
-                            readOnly: false
+
                         - name: node18-container
                           image: node:18
                           command: [ "cat"]
