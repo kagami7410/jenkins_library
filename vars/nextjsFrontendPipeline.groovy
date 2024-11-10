@@ -125,7 +125,7 @@ def call(body){
                                     mkdir -p zap/wrk/zap_reports
                                     chmod +777 zap/wrk/zap_reports
 
-                                    python3 /zap/zap-baseline.py \
+                                    python3 /zap/zap-full-scan.py \
                                     -t ${TARGET_URL} \
                                     -r ${REPORT_DIR}/${REPORT_FILE} \
                                     -J ${REPORT_DIR}/zap_report.json
