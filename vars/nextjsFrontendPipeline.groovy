@@ -124,11 +124,9 @@ def call(body){
                                  """
                                     mkdir -p zap/wrk/zap_reports
                                     chmod +777 zap/wrk/zap_reports
-
-                                    python3 /zap/zap-full-scan.py \
-                                    -t ${TARGET_URL} \
-                                    -r ${REPORT_DIR}/${REPORT_FILE} \
-                                    -J ${REPORT_DIR}/zap_report.json
+                                    cd zap/wrk/${REPORT_DIR}
+                                    echo "this is testfile!" > testfile.html
+                                    pwd
                                     """,
                                     returnStatus: true)
 
@@ -142,13 +140,6 @@ def call(body){
 //                                    -J /${REPORT_DIR}/zap_report.json
 //                                  """,
 //                                    returnStatus: true)
-
-                            sh """
-                               cd zap/wrk/${REPORT_DIR}
-                               echo "this is testfile!" > testfile.txt
-                               pwd
-
-                            """
 
 
                             archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
