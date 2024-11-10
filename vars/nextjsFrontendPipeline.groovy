@@ -43,13 +43,13 @@ def call(body){
                             readOnly: false
                         - name: zap
                           image: ghcr.io/zaproxy/zaproxy:stable
-                          command: [ "cat"]
+                          command: [ "ls -ltr"]
                           tty: true
                           securityContext:
                             runAsUser: 0
                           volumeMounts:
                           - name: extra-volume
-                            mountPath: "/zap/wrk"
+                            mountPath: "/zap"
                             readOnly: false
                         - name: node18-container
                           image: node:18
@@ -125,7 +125,7 @@ def call(body){
                                     mkdir -p zap/wrk/zap_reports
                                     chmod +777 zap/wrk/zap_reports
 
-                                    python3 /zap/zap-baseline.py \
+                                     /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
                                     -r zap/wrk/${REPORT_DIR}/${REPORT_FILE} \
                                     -J zap/wrk/${REPORT_DIR}/zap_report.json
@@ -148,8 +148,6 @@ def call(body){
                                echo "this is testfile!" > testfile.txt
                                pwd
 
-
-                               sleep 200
 
                             """
 
