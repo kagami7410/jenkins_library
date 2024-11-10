@@ -127,8 +127,8 @@ def call(body){
 
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
-                                    -r ${REPORT_DIR}/${REPORT_FILE} \
-                                    -J ${REPORT_DIR}/zap_report.json
+                                    -r zap/wrk/${REPORT_DIR}/${REPORT_FILE} \
+                                    -J zap/wrk/${REPORT_DIR}/zap_report.json
                                     """,
                                     returnStatus: true)
 
@@ -149,7 +149,6 @@ def call(body){
                                pwd
 
 
-                               sleep 200
 
                             """
 
