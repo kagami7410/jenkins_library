@@ -43,7 +43,7 @@ def call(body){
                             readOnly: false
                         - name: zap
                           image: ghcr.io/zaproxy/zaproxy:stable
-                          command: [ "ls -ltr"]
+                          command: [ "cat"]
                           tty: true
                           securityContext:
                             runAsUser: 0
@@ -125,10 +125,10 @@ def call(body){
                                     mkdir -p zap/wrk/zap_reports
                                     chmod +777 zap/wrk/zap_reports
 
-                                     /zap/zap-baseline.py \
+                                    python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
-                                    -r zap/wrk/${REPORT_DIR}/${REPORT_FILE} \
-                                    -J zap/wrk/${REPORT_DIR}/zap_report.json
+                                    -r ${REPORT_DIR}/${REPORT_FILE} \
+                                    -J ${REPORT_DIR}/zap_report.json
                                     """,
                                     returnStatus: true)
 
@@ -147,7 +147,6 @@ def call(body){
                                cd zap/wrk/${REPORT_DIR}
                                echo "this is testfile!" > testfile.txt
                                pwd
-
 
                             """
 
