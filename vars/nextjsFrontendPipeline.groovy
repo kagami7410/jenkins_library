@@ -143,6 +143,9 @@ def call(body){
                                     -t ${TARGET_URL} \
                                     -r /${REPORT_DIR}/${REPORT_FILE} \
                                     -J /${REPORT_DIR}/zap_report.json
+
+                                    cd /zap/wrk/${REPORT_DIR}
+                                    ls
                                   """,
                                     returnStatus: true)
 
