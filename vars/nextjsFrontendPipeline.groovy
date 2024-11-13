@@ -122,7 +122,9 @@ def call(body){
 
                             ZapScanExitCode = sh(script:
                                  """
+                                    cd /
                                     ls
+                                    sleep 180
                                     mkdir -p zap/wrk/zap_reports
                                     chmod +777 zap/wrk/zap_reports
                                     cd zap/wrk/${REPORT_DIR}
