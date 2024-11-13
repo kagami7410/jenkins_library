@@ -124,7 +124,9 @@ def call(body){
                                  """
                                     cd /zap
                                     ls
-                                    sleep 180
+                                    cd wrk
+                                    mkdir zap_reports
+                                    ls
                                     mkdir -p zap/wrk/zap_reports
                                     chmod +777 zap/wrk/zap_reports
                                     cd zap/wrk/${REPORT_DIR}
