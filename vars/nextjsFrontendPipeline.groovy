@@ -122,7 +122,7 @@ def call(body){
 
                             ZapScanExitCode = sh(script:
                                  """
-                                    cd /
+                                    cd /zap
                                     ls
                                     sleep 180
                                     mkdir -p zap/wrk/zap_reports
