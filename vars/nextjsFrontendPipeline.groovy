@@ -65,8 +65,7 @@ def call(body){
                           hostPath:
                             path: "/var/run/docker.sock"
                         - name: extra-volume
-                          hostPath:
-                            path: "/tmp/zap/wrk"
+                          emptyDir: {}  # Temporary storage that is available as long as the Pod is running
                     """
             }
         }
@@ -151,6 +150,7 @@ def call(body){
                             sh """
                                     cd /zap/wrk/${REPORT_DIR}
                                     ls
+                                    sleep 200
                                 """
 
 
