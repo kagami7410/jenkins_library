@@ -162,6 +162,13 @@ def call(body){
 //
             stage('Publish Report') {
                 steps {
+                    script{
+                        sh """
+                            cd /
+                            ls
+                           """
+                    }
+
 
                     // Publish the HTML report for viewing in Jenkins
                     publishHTML([
