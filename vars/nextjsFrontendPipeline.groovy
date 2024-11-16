@@ -43,7 +43,7 @@ def call(body){
                             readOnly: false
                           volumeMounts:
                           - name: extra-volume
-                            mountPath: /home/jenkins/agent/workspace/squid-corals-frontend/zap
+                            mountPath: /home/jenkins/agent/workspace/squid-corals-frontend
                             readOnly: false
                         - name: zap
                           image: ghcr.io/zaproxy/zaproxy:stable
