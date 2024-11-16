@@ -118,32 +118,28 @@ def call(body){
                     container('zap') {
                         script {
                             // Start ZAP in daemon mode and scan the target URL
-//
-//                            ZapScanExitCode = sh(script:
-//                                 """
-//                                    cd /zap
-//                                    ls
-//                                    cd wrk
-//                                    mkdir zap_reports
-//                                    ls
-//                                    mkdir -p zap/wrk/zap_reports
-//                                    chmod +777 zap/wrk/zap_reports
-//                                    cd zap/wrk/${REPORT_DIR}
-//                                    echo "<h2>this is testfile!<h2>" > testfile.html
-//                                    pwd
-//                                    """,
+
 //                                    returnStatus: true)
 
 
 
+//                            ZapScanExitCode = sh(script:
+//                                 """
+//                                    python3 /zap/zap-baseline.py \
+//                                    -t ${TARGET_URL} \
+//                                    -r /${REPORT_DIR}/${REPORT_FILE} \
+//                                    -J /${REPORT_DIR}/zap_report.json
+//
+//
+//                                  """,
+//                                    returnStatus: true)
+
                             ZapScanExitCode = sh(script:
-                                 """
+                                    """
                                     python3 /zap/zap-baseline.py \
                                     -t ${TARGET_URL} \
-                                    -r /${REPORT_DIR}/${REPORT_FILE} \
+                                    -r ${REPORT_DIR}/${REPORT_FILE} \
                                     -J /${REPORT_DIR}/zap_report.json
-
-
                                   """,
                                     returnStatus: true)
 
