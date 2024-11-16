@@ -138,7 +138,6 @@ def call(body){
                                     returnStatus: true)
 
                             sh """
-                                    sleep 200
                                     ls
                                 """
 
@@ -147,7 +146,7 @@ def call(body){
 
                             // Publish the HTML report for viewing in Jenkins
                             publishHTML([
-                                        reportDir  : "/zap/wrk/${REPORT_DIR}",
+                                        reportDir  : "/zap/${REPORT_DIR}",
                                         reportFiles: "${REPORT_FILE}",
 
                                         reportName : 'OWASP ZAP Report',
