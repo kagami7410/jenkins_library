@@ -43,7 +43,7 @@ def call(body){
                             readOnly: false
                           volumeMounts:
                           - name: extra-volume
-                            mountPath: /home/jenkins/agent/workspace
+                            mountPath: /home/jenkins/agent
                             readOnly: false
                         - name: zap
                           image: ghcr.io/zaproxy/zaproxy:stable
