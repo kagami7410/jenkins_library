@@ -139,6 +139,7 @@ def call(body){
 
                             sh """
                                     ls
+                                    pwd
                                 """
 
 
@@ -166,6 +167,7 @@ def call(body){
                         sh """
                             cd /
                             ls
+                            pwd
                            """
                     }
 
