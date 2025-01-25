@@ -19,8 +19,8 @@ def call(body){
 
             kubernetes{
 //                inheritFrom 'kube-agent'
-//                defaultContainer 'agent-container'
-//                serviceAccount 'jenkins-admin'
+                defaultContainer 'agent-container'
+                serviceAccount 'jenkins-admin'
 
                 yaml """
                     apiVersion: v1
