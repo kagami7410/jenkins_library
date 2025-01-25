@@ -7,7 +7,7 @@ def call(body){
 
         environment {
             def ZapScanExitCode = 0;
-            APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "squidcorals-frontend"}"
+            APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "reef-forge-frontend"}"
 //            APPLICATION_NAME = "${pipelineParams.appName}"
             TARGET_URL = "https://squidcorals.sujantechden.uk"    // Replace with your target application URL
             ZAP_PORT = "8080"
@@ -37,7 +37,7 @@ def call(body){
 
                             withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
 
-                                GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/${env.APPLICATION_NAME}-nextjs-fe.git"
+                                GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/${env.APPLICATION_NAME}.git"
                                 def version = sh (
                                         script: "node -p \"require('./package.json').version\"",
                                         returnStdout: true
