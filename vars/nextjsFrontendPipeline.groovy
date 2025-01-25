@@ -102,13 +102,11 @@ def call(body){
 
            stage('docker build and push') {
                steps {
-                   container('agent-container'){
 
                    script{
                        new docker().dockerLogin()
                        new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
                      }
-                 }
             }
         }
 
