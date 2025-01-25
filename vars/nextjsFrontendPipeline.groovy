@@ -100,57 +100,57 @@ def call(body){
                 }
             }
 
-//            stage('docker build and push') {
-//                steps {
-//                    script{
-//                        new docker().dockerLogin()
-//                        new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
-//                    }
-//                }
-//            }
+           stage('docker build and push') {
+               steps {
+                   script{
+                       new docker().dockerLogin()
+                       new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
+                   }
+               }
+           }
 
-//            stage(' deploy to kubernetes '){
-//                steps{
-//                    script{
-//                        new helm().deploy(env.APPLICATION_NAME)
-//                    }
-//                }
-//            }
-
-
-            stage('Run ZAP Security Scan'){
-                steps {
-                    container('zap') {
-                        script {
-                            // Start ZAP in daemon mode and scan the target URL
+           stage(' deploy to kubernetes '){
+               steps{
+                   script{
+                       new helm().deploy(env.APPLICATION_NAME)
+                   }
+               }
+           }
 
 
-
-                            ZapScanExitCode = sh(script:
-                                 """
-                                    python3 /zap/zap-baseline.py \
-                                    -t ${TARGET_URL} \
-                                    -r /${REPORT_DIR}/${REPORT_FILE} \
-                                    -J /${REPORT_DIR}/zap_report.json
-
-
-                                  """,
-                                    returnStatus: true)
-
-                            sh """
-                                    ls
-                                    pwd
-                                """
-
-
-                            archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
+            // stage('Run ZAP Security Scan'){
+            //     steps {
+            //         container('zap') {
+            //             script {
+            //                 // Start ZAP in daemon mode and scan the target URL
 
 
 
-                        }
-                    }
-                }
-            }
+            //                 ZapScanExitCode = sh(script:
+            //                      """
+            //                         python3 /zap/zap-baseline.py \
+            //                         -t ${TARGET_URL} \
+            //                         -r /${REPORT_DIR}/${REPORT_FILE} \
+            //                         -J /${REPORT_DIR}/zap_report.json
+
+
+            //                       """,
+            //                         returnStatus: true)
+
+            //                 sh """
+            //                         ls
+            //                         pwd
+            //                     """
+
+
+            //                 archiveArtifacts artifacts: "**/*, allowEmptyArchive: true"
+
+
+
+            //             }
+            //         }
+            //     }
+            // }
 
 
 //            stage('Archive Report') {
