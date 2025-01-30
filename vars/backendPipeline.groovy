@@ -1,4 +1,4 @@
-import com.activesync.libraries.*
+import com.common.libraries.*
 
 def call(body){
     pipeline {
@@ -39,7 +39,7 @@ def call(body){
                 steps {
                     script{
                         new docker().dockerLogin()
-                        new docker().dockerBuildAndPush("better-backend", "sujan7410")
+                        new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
                     }
                 }
             }
