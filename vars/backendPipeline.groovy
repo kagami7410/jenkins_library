@@ -1,9 +1,9 @@
 import com.common.libraries.*
 
 def call(body){
+    def pipelineParams = [:]
     pipeline {
         environment {
-            def ZapScanExitCode = 0;
             APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "reef-forge-backend"}"
         }
         agent {
