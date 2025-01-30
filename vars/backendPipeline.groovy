@@ -2,6 +2,10 @@ import com.common.libraries.*
 
 def call(body){
     pipeline {
+        environment {
+            def ZapScanExitCode = 0;
+            APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "reef-forge-backend"}"
+        }
         agent {
             kubernetes{
                 inheritFrom 'kube-agent'
