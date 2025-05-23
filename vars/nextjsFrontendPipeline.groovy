@@ -50,15 +50,15 @@ def call(body){
                 }
             }
 
-           stage('docker build and push') {
-               steps {
-
-                   script{
-                       new docker().dockerLogin()
-                       new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
-                     }
-            }
-        }
+//           stage('docker build and push') {
+//               steps {
+//
+//                   script{
+//                       new docker().dockerLogin()
+//                       new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
+//                     }
+//            }
+//        }
 
            stage(' deploy to kubernetes '){
                steps{
