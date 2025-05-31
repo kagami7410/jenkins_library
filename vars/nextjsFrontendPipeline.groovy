@@ -83,9 +83,11 @@ def call(body){
 
                             }
 
-                            sh 'echo adding secrets to workspace.....'
-
-                            sh 'cp -r /vault/secrets/* ./'
+                            sh """
+                            echo adding secrets to workspace.....'
+                            ls -la /vault/secrets
+                            cp -r /vault/secrets/* ./
+                            """
 
 
                         }
