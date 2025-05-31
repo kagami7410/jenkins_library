@@ -26,7 +26,7 @@ def call(body){
                 metadata:
                   annotations:
                     vault.hashicorp.com/agent-inject: "true"
-                    vault.hashicorp.com/role: "jenkins-agent"
+                    vault.hashicorp.com/role: "jenkins-admin-role"
                     vault.hashicorp.com/agent-inject-secret-stripe-api-key.txt: "kv/stripe/dev/secrets/stripe-api-key" # Vault secret path
                     vault.hashicorp.com/agent-inject-template-stripe-api-key.txt: |
                       {{`{{- with secret "kv/stripe/dev/secrets/stripe-api-key" -}}`}}
