@@ -29,14 +29,14 @@ def call(body){
                     vault.hashicorp.com/role: "jenkins-admin-role"
                     vault.hashicorp.com/agent-inject-secret-stripe-api-key.txt: "kv/stripe/dev/secrets/stripe-api-key" # Vault secret path
                     vault.hashicorp.com/agent-inject-template-stripe-api-key.txt: |
-                      {{`{{- with secret "kv/stripe/dev/secrets/stripe-api-key" -}}`}}
-                      {{`{{ .Data.data.NEXT_PUBLIC_STRIPE_PUBLIC_KEY }}`}} 
-                      {{`{{- end }}`}}
+                      {{- with secret "kv/stripe/dev/secrets/stripe-api-key" -}}
+                      {{ .Data.data.NEXT_PUBLIC_STRIPE_PUBLIC_KEY }} 
+                      {{- end }}
                     vault.hashicorp.com/agent-inject-secret-stripe-api-secret.txt: "kv/stripe/dev/secrets/stripe-api-secret" # Vault secret path
                     vault.hashicorp.com/agent-inject-template-stripe-api-secret.txt: |
-                      {{`{{- with secret "kv/stripe/dev/secrets/stripe-api-secret" -}}`}}
-                      {{`{{ .Data.data.STRIPE_SECRET_KEY }}`}}
-                      {{`{{- end }}`}}
+                      {{- with secret "kv/stripe/dev/secrets/stripe-api-secret" -}}
+                      {{ .Data.data.STRIPE_SECRET_KEY }}
+                      {{- end }}
                     vault.hashicorp.com/secret-volume-path: "/app/vault/secrets"
 
                 spec:
