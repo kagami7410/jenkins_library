@@ -20,8 +20,46 @@ def call(body){
             kubernetes{
                 inheritFrom 'kube-agent'
                 defaultContainer 'agent-container'
-                serviceAccount 'jenkins-admin'
 
+                yaml """
+                kind: Pod
+                metadata:
+                  annotations:
+                    vault.hashicorp.com/agent-inject: "true"
+                    vault.hashicorp.com/role: "jenkins-agent"
+                    vault.hashicorp.com/agent-inject-secret-stripe-api-key.txt: "kv/stripe/dev/secrets/stripe-api-key" # Vault secret path
+                    vault.hashicorp.com/agent-inject-template-stripe-api-key.txt: |
+                      {{`{{- with secret "kv/stripe/dev/secrets/stripe-api-key" -}}`}}
+                      {{`{{ .Data.data.NEXT_PUBLIC_STRIPE_PUBLIC_KEY }}`}} 
+                      {{`{{- end }}`}}
+                    vault.hashicorp.com/agent-inject-secret-stripe-api-secret.txt: "kv/stripe/dev/secrets/stripe-api-secret" # Vault secret path
+                    vault.hashicorp.com/agent-inject-template-stripe-api-secret.txt: |
+                      {{`{{- with secret "kv/stripe/dev/secrets/stripe-api-secret" -}}`}}
+                      {{`{{ .Data.data.STRIPE_SECRET_KEY }}`}}
+                      {{`{{- end }}`}}
+                    vault.hashicorp.com/secret-volume-path: "/app/vault/secrets"
+                    {{- end}}
+
+                spec:
+                    serviceAccountName: jenkins-admin
+                    containers:
+                    - name: agent-container
+                      image: sujan7410/kubernetes-agent:v1.0.2
+                      command: [ "cat"]
+                      tty: true
+                      volumeMounts:
+                      - name: docker-sock-volume
+                        mountPath: /var/run/docker.sock
+                        readOnly: false
+                    - name: node18-container
+                      image: node:18
+                      command: [ "cat"]
+                      tty: true                          
+                    volumes:
+                    - name: docker-sock-volume
+                      hostPath:
+                        path: "/var/run/docker.sock"
+                    """
             }
         }
 
