@@ -65,7 +65,7 @@ def call(body){
                       hostPath:
                         path: "/var/run/docker.sock"
                     - name: vault-secret
-                        emptyDir: {}
+                      emptyDir: {}
                     """
             }
         }
