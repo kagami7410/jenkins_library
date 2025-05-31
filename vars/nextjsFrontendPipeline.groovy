@@ -53,9 +53,6 @@ def call(body){
                     - name: node18-container
                       image: node:18
                       command: [ "cat"]
-                      volumeMounts:
-                      - name: vault-secret
-                        mountPath: /vault/secrets
                       tty: true                          
   
                     volumes:
