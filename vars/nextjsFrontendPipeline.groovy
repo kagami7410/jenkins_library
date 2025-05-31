@@ -37,7 +37,7 @@ def call(body){
                       {{- with secret "kv/stripe/dev/secrets/stripe-api-secret" -}}
                       {{ .Data.data.STRIPE_SECRET_KEY }}
                       {{- end }}
-                    vault.hashicorp.com/secret-volume-path: "/home/jenkins/agent/workspace/reef-forge/app/vault/secrets"
+                    vault.hashicorp.com/secret-volume-path: "/app/vault/secrets"
 
                 spec:
                     serviceAccountName: jenkins-admin
@@ -82,6 +82,12 @@ def call(body){
                                 echo "App Version: ${version}"
 
                             }
+
+                            sh 'echo adding secrets to workspace.....'
+
+                            sh 'cp -r /vault/secrets/* ./'
+
+
                         }
                     }
                 }
