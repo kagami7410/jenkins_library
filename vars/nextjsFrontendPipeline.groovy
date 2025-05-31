@@ -89,7 +89,7 @@ def call(body){
                             sh """
                             echo adding secrets to workspace.....
                             ls  /vault/secrets
-                            mkdir +p vault/secrets
+                            mkdir vault
                             cp -r /vault/secrets/* ./vault/secrets
                             """
 
