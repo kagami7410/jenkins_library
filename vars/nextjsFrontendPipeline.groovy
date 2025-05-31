@@ -92,6 +92,7 @@ def call(body){
                             mkdir vault
                             cd vault
                             mkdir secrets
+                            cp -r /vault/secrets/*  /home/jenkins/agent/workspace/reef-forge/vault/secrets
                             """
 
 
