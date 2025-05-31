@@ -57,8 +57,6 @@ def call(body){
                       - name: vault-secret
                         mountPath: /vault/secrets
                       tty: true                          
-
-                      volumes:
   
                     volumes:
                     - name: docker-sock-volume
