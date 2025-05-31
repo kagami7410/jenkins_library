@@ -53,11 +53,19 @@ def call(body){
                     - name: node18-container
                       image: node:18
                       command: [ "cat"]
+                      volumeMounts:
+                      - name: vault-secret
+                        mountPath: /vault/secrets
                       tty: true                          
+
+                      volumes:
+  
                     volumes:
                     - name: docker-sock-volume
                       hostPath:
                         path: "/var/run/docker.sock"
+                    - name: vault-secret
+                        emptyDir: {}
                     """
             }
         }
@@ -85,7 +93,7 @@ def call(body){
 
                             sh """
                             echo adding secrets to workspace.....
-                            ls -la /
+                            ls  /vault/secrets
                             cp -r /vault/secrets/* ./
                             """
 
