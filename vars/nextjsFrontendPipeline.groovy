@@ -92,7 +92,7 @@ def call(body){
                             mkdir vault
                             cd vault
                             mkdir secrets
-                            cp -r /vault/secrets/*  vault/secrets
+                            cp -r /vault/secrets/*  vault/secrets/
                             """
 
 
