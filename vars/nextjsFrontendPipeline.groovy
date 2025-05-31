@@ -37,7 +37,7 @@ def call(body){
                       {{- with secret "kv/stripe/dev/secrets/stripe-api-secret" -}}
                       {{ .Data.data.STRIPE_SECRET_KEY }}
                       {{- end }}
-                    vault.hashicorp.com/secret-volume-path: "/app/vault/secrets"
+                    vault.hashicorp.com/secret-volume-path: "/vault/secrets"
 
                 spec:
                     serviceAccountName: jenkins-admin
