@@ -34,8 +34,7 @@ def call(body){
             }
             stage('build') {
                 steps {
-                    sh "sleep 500"
-                    sh "echo $JAVA_HOME"
+                    sh "java -version"
                     sh "mvn clean package"
 
                 }
