@@ -5,6 +5,7 @@ def call(body){
     pipeline {
         environment {
             APPLICATION_NAME = "${pipelineParams.appName != null ? pipelineParams.appName : "reef-forge-backend"}"
+            PATH = "${JAVA_HOME}/bin:${PATH}"
         }
         agent {
             kubernetes{
