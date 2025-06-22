@@ -25,7 +25,6 @@ def call(body){
 //                        git remote add origin git@github.com:kagami7410/better_backend.git
 
                         withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
-
                             GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/better_backend.git"
 
                         }
@@ -35,8 +34,10 @@ def call(body){
             }
             stage('build') {
                 steps {
+                    sh "sleep 500"
                     sh "echo $JAVA_HOME"
                     sh "mvn clean package"
+
                 }
             }
 
