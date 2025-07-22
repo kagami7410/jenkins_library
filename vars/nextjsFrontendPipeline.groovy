@@ -70,46 +70,46 @@ def call(body){
         }
 
         stages {
-            stage('set up') {
-                steps {
-                    container('node18-container'){
-                        script {
+//            stage('set up') {
+//                steps {
+//                    container('node18-container'){
+//                        script {
+//
+//                            withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
+//
+//                                GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/${env.APPLICATION_NAME}.git"
+//                                def version = sh (
+//                                        script: "node -p \"require('./package.json').version\"",
+//                                        returnStdout: true
+//                                ).trim()
+//                                echo "App Version: ${version}"
+//
+//                            }
+//
+//                            sh """
+//                            echo adding secrets to workspace.....
+//                            ls  /vault/secrets
+//                            mkdir vault
+//                            cd vault
+//                            mkdir secrets
+//                            cp -r /vault/secrets/*  /home/jenkins/agent/workspace/reef-forge/vault/secrets
+//                            """
+//
+//
+//                        }
+//                    }
+//                }
+//            }
 
-                            withCredentials([sshUserPrivateKey(credentialsId: 'github_key', keyFileVariable: 'SSH_KEY')]) {
-
-                                GIT_SSH_COMMAND="ssh -i ${SSH_KEY} git clone git@github.com:kagami7410/${env.APPLICATION_NAME}.git"
-                                def version = sh (
-                                        script: "node -p \"require('./package.json').version\"",
-                                        returnStdout: true
-                                ).trim()
-                                echo "App Version: ${version}"
-
-                            }
-
-                            sh """
-                            echo adding secrets to workspace.....
-                            ls  /vault/secrets
-                            mkdir vault
-                            cd vault
-                            mkdir secrets
-                            cp -r /vault/secrets/*  /home/jenkins/agent/workspace/reef-forge/vault/secrets
-                            """
-
-
-                        }
-                    }
-                }
-            }
-
-           stage('docker build and push') {
-               steps {
-
-                   script{
-                       new docker().dockerLogin()
-                       new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
-                     }
-            }
-        }
+//           stage('docker build and push') {
+//               steps {
+//
+//                   script{
+//                       new docker().dockerLogin()
+//                       new docker().dockerBuildAndPush("sujan7410", "${env.APPLICATION_NAME}" , "latest")
+//                     }
+//            }
+//        }
 
            stage(' deploy to kubernetes '){
                steps{
